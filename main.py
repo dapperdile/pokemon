@@ -1,6 +1,6 @@
 import csv
 
-__author__ = "rafael.vasconcelos"
+__author__ = "janio.almeida"
 __date__ = "24/01/2024"
 __version__ = open("version").readline()
 
@@ -8,6 +8,9 @@ def typeAdvantage(attack, defense, defense1, types_matchup, types):
     index_attack = None
     index_defense = None
     index_defense1 = None
+    print("teste typeAdvantage 1 defense = ", defense) 
+    print("teste typeAdvantage 1 defense1 = ", defense1)
+    print("teste typeAdvantage 1 attack = ", attack)  
 
     for index,valor in enumerate(types):
         if valor == attack:
@@ -16,11 +19,16 @@ def typeAdvantage(attack, defense, defense1, types_matchup, types):
             index_defense = index
         elif valor == defense1:
             index_defense1 = index
+    print("teste typeAdvantage 2 ", index_defense)
+    print("teste typeAdvantage 2 ", index_defense1)
+    print("teste typeAdvantage 2 index_attack = ", index_attack)
+    print("teste typeAdvantage 2 types_matchup = ", types_matchup)
+    if index_defense1: 
+        result = int(types_matchup[index_attack][index_defense]) * int(types_matchup[index_attack][index_defense1])
+    else:
+        result = int(types_matchup[index_attack][index_defense])
 
-    result = int(types_matchup[index_attack][index_defense]) * int(types_matchup[index_attack][index_defense1])
-    
     return result
-
 
 def pokenameValidation(input_name, pokelist):
     pokeinfo = None
@@ -32,6 +40,16 @@ def pokenameValidation(input_name, pokelist):
             break
     
     return validation, poke
+
+
+def attackValidation(input_attack, types):
+    validation = False
+    index = types.index(input_attack)
+    if index >= 0:
+        validation = True
+    
+    return validation
+
 
 
 # Tratamento dos dados
@@ -79,9 +97,9 @@ print(pokemon1,' vs ', pokemon2)
 
 wrong_input = True
 while wrong_input:
-    pokemon2 = input("Digite o nome do segundo Pokemon: ")
-    poke_validation, pokemon2 = pokenameValidation(pokemon2, pokelist)
-    if poke_validation == True:
+    attack = input("Digite o tipo do ataque: ")
+    attack_validation = attackValidation(attack, types)
+    if attack_validation == True:
         wrong_input = False
     else:
         print("Nome incorreto") 
