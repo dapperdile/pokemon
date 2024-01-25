@@ -1,6 +1,6 @@
 import csv
 
-__author__ = "janio.almeida"
+__author__ = "diogo.shiroto"
 __date__ = "24/01/2024"
 __version__ = open("version").readline()
 
@@ -8,21 +8,15 @@ def typeAdvantage(attack, defense, defense1, types_matchup, types):
     index_attack = None
     index_defense = None
     index_defense1 = None
-    print("teste typeAdvantage 1 defense = ", defense) 
-    print("teste typeAdvantage 1 defense1 = ", defense1)
-    print("teste typeAdvantage 1 attack = ", attack)  
 
     for index,valor in enumerate(types):
         if valor == attack:
             index_attack = index
-        elif valor == defense:
+        if valor == defense:
             index_defense = index
-        elif valor == defense1:
+        if valor == defense1:
             index_defense1 = index
-    print("teste typeAdvantage 2 ", index_defense)
-    print("teste typeAdvantage 2 ", index_defense1)
-    print("teste typeAdvantage 2 index_attack = ", index_attack)
-    print("teste typeAdvantage 2 types_matchup = ", types_matchup)
+
     if index_defense1: 
         result = int(types_matchup[index_attack][index_defense]) * int(types_matchup[index_attack][index_defense1])
     else:
@@ -49,7 +43,6 @@ def attackValidation(input_attack, types):
         validation = True
     
     return validation
-
 
 
 # Tratamento dos dados
@@ -104,11 +97,9 @@ while wrong_input:
     else:
         print("Nome incorreto") 
 
-defense = pokemon1[1]
-defense1 = pokemon1[2]
-
-print(defense, defense1)
+defense = pokemon2[1]
+defense1 = pokemon2[2]
 
 result = typeAdvantage(attack, defense, defense1, types_matchup, types)
 
-print(result)
+print("Multiplicação de dano = ", result)
