@@ -1,48 +1,32 @@
 import csv
+from pokemon_obj import pokemon_char
+from battle import Pokemon_battle
 
 __author__ = "diogo.shiroto"
 __date__ = "24/01/2024"
 __version__ = open("version").readline()
 
-def typeAdvantage(attack, defense, defense1, types_matchup, types):
-    index_attack = None
-    index_defense = None
-    index_defense1 = None
+poke_1_moves = [{
+    "name": "Tackle",
+    "type": "Normal",
+    "category": "Physical",
+    "power": 40,
+    "accuracy": 1,
+    "pp": 35
+},
+{
+    "name": "Growl",
+    "type": "Normal",
+    "category": "Status",
+    "power": None,
+    "accuracy": 1,
+    "pp": 40
+}]
 
-    for index,valor in enumerate(types):
-        if valor == attack:
-            index_attack = index
-        if valor == defense:
-            index_defense = index
-        if valor == defense1:
-            index_defense1 = index
+pokemon1 = pokemon_char(dex_number=1, poke_type='grass', lvl=1, moves=poke_1_moves)
+print("----- TESTE 1 pokemon1 = ",  pokemon1.poke_type)
 
-    if index_defense1: 
-        result = int(types_matchup[index_attack][index_defense]) * int(types_matchup[index_attack][index_defense1])
-    else:
-        result = int(types_matchup[index_attack][index_defense])
-
-    return result
-
-def pokenameValidation(input_name, pokelist):
-    pokeinfo = None
-    validation = False
-    for poke in pokelist:
-        if input_name == poke[0]:
-            validation = True
-            pokeinfo = poke
-            break
-    
-    return validation, poke
-
-
-def attackValidation(input_attack, types):
-    validation = False
-    index = types.index(input_attack)
-    if index >= 0:
-        validation = True
-    
-    return validation
+battle = Pokemon_battle()
 
 
 # Tratamento dos dados
@@ -65,25 +49,25 @@ pokelist = pokelist[1:]
 
 types = ["Normal", "Fighting", "Flying", "Poison", "Ground", "Rock", "Bug", "Ghost", "Steel", "Fire", "Water", "Grass", "Electric", "Psychic", "Ice", "Dragon", "Dark", "Fairy"]
 
-# Identificação dos Pokemons 
+# Identificação dos Pokemons
 
 wrong_input = True
 while wrong_input:
     pokemon1 = input("Digite o nome do primeiro Pokemon: ")
-    poke_validation, pokemon1 = pokenameValidation(pokemon1, pokelist)
+    poke_validation, pokemon1 = battle.pokenameValidation(pokemon1, pokelist)
     if poke_validation == True:
         wrong_input = False
     else:
-        print("Nome incorreto")    
+        print("Nome incorreto")
 
 wrong_input = True
 while wrong_input:
     pokemon2 = input("Digite o nome do segundo Pokemon: ")
-    poke_validation, pokemon2 = pokenameValidation(pokemon2, pokelist)
+    poke_validation, pokemon2 = battle.pokenameValidation(pokemon2, pokelist)
     if poke_validation == True:
         wrong_input = False
     else:
-        print("Nome incorreto")   
+        print("Nome incorreto")
 
 
 print(pokemon1,' vs ', pokemon2)
@@ -91,15 +75,15 @@ print(pokemon1,' vs ', pokemon2)
 wrong_input = True
 while wrong_input:
     attack = input("Digite o tipo do ataque: ")
-    attack_validation = attackValidation(attack, types)
+    attack_validation = battle.attackValidation(attack, types)
     if attack_validation == True:
         wrong_input = False
     else:
-        print("Nome incorreto") 
+        print("Nome incorreto")
 
 defense = pokemon2[1]
 defense1 = pokemon2[2]
 
-result = typeAdvantage(attack, defense, defense1, types_matchup, types)
+result = battle.typeAdvantage(attack, defense, defense1, types_matchup, types)
 
 print("Multiplicação de dano = ", result)
