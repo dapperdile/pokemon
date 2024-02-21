@@ -1,39 +1,24 @@
 import csv
-from pokemon_obj import pokemon_char
+from pokemon_obj import Pokemon_char
 from battle import Pokemon_battle
 
 __author__ = "diogo.shiroto"
 __date__ = "24/01/2024"
 __version__ = open("version").readline()
 
-poke_1_moves = [{
-    "name": "Tackle",
-    "type": "Normal",
-    "category": "Physical",
-    "power": 40,
-    "accuracy": 1,
-    "pp": 35
-},
-{
-    "name": "Growl",
-    "type": "Normal",
-    "category": "Status",
-    "power": None,
-    "accuracy": 1,
-    "pp": 40
-}]
 
-pokemon1 = pokemon_char(dex_number=1, poke_type='grass', lvl=1, moves=poke_1_moves)
-print("----- TESTE 1 pokemon1 = ",  pokemon1.poke_type)
-
+types = ["Normal", "Fighting", "Flying", "Poison", "Ground", "Rock", "Bug", "Ghost", "Steel", "Fire", "Water", "Grass", "Electric", "Psychic", "Ice", "Dragon", "Dark", "Fairy"]
 battle = Pokemon_battle()
 
 
 # Tratamento dos dados
-file = open('pokemon.csv')
+file = open('data/pokemon.csv')
 csvreader = csv.reader(file)
 
-file = open('Tipagem.csv')
+file = open('data/tipagem.csv')
+csvtipagem = csv.reader(file)
+
+file = open('data/tipagem.csv')
 csvtipagem = csv.reader(file)
 
 types_matchup = []
@@ -46,8 +31,6 @@ for row in csvreader:
     pokelist.append(row[1:4])
     
 pokelist = pokelist[1:]
-
-types = ["Normal", "Fighting", "Flying", "Poison", "Ground", "Rock", "Bug", "Ghost", "Steel", "Fire", "Water", "Grass", "Electric", "Psychic", "Ice", "Dragon", "Dark", "Fairy"]
 
 # Identificação dos Pokemons
 
@@ -69,6 +52,27 @@ while wrong_input:
     else:
         print("Nome incorreto")
 
+
+# Preparando pokemons
+poke_1_moves = [{
+    "name": "Tackle",
+    "type": "Normal",
+    "category": "Physical",
+    "power": 40,
+    "accuracy": 1,
+    "pp": 35
+},
+{
+    "name": "Growl",
+    "type": "Normal",
+    "category": "Status",
+    "power": None,
+    "accuracy": 1,
+    "pp": 40
+}]
+
+pokemon1 = Pokemon_char(dex_number=1, poke_type='grass', lvl=1, moves=poke_1_moves)
+print("----- TESTE 1 pokemon1 = ",  pokemon1.poke_type)
 
 print(pokemon1,' vs ', pokemon2)
 
