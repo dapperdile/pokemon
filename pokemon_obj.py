@@ -4,4 +4,4 @@ class Pokemon_char:
 		self.poke_type = poke_type
 		self.lvl = lvl
 		self.moves = moves
-		self.attack = 49 + lvl * 2
+		self.attack = 49 + lvl * 2 # Ainda devemos definir os status !!
