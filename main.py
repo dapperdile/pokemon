@@ -11,7 +11,6 @@ types = ["Normal", "Fighting", "Flying", "Poison", "Ground", "Rock", "Bug", "Gho
 battle = Pokemon_battle()
 
 def pokeInput(battle, pokelist):
-
     wrong_input = True
     while wrong_input:
         pokemon1 = input("Digite o nome do primeiro Pokemon: ")
@@ -32,15 +31,6 @@ def pokeInput(battle, pokelist):
     
     return pokemon1, pokemon2
 
-def getPokemonInfo(pokename, pokelist):
-    for row in pokelist:
-        if row[1] == pokename:
-            dex_number = row[0]
-            type1 = row[2]
-            type2 = row[3]
-            break
-
-    return dex_number, type1, type2
 
 # Tratamento dos dados
 file = open('data/pokemon.csv')
@@ -79,16 +69,8 @@ pokemoves = pokemoves[2:]
 
 # Identificação dos Pokemons
 pokemon1, pokemon2 = pokeInput(battle, pokelist)
-print('teste1')
-poke1_dex_number, poke1_type1, poke1_type2 = getPokemonInfo(pokemon1, pokelist)
-poke2_dex_number, poke2_type1, poke2_type2 = getPokemonInfo(pokemon2, pokelist)
-print('poke1_dex_number=',poke1_dex_number)
-print('poke1_type1=',poke1_type1)
-print('poke1_type2=',poke1_type2)
-print('poke2_dex_number=',poke2_dex_number)
-print('poke2_type1=',poke2_type1)
-print('poke2_type2=',poke2_type2)
-
+print('pokemon1=',pokemon1)
+print('pokemon2=',pokemon2)
 
 
 # Preparando pokemons

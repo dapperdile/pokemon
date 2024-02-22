@@ -33,7 +33,7 @@ class Pokemon_battle:
                 pokeinfo = poke
                 break
         
-        return validation, poke
+        return validation, pokeinfo
 
 
     def attackValidation(self, input_attack, types):

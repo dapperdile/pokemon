@@ -1,0 +1,3 @@
+- Verificar nível dos pokemons
+- Verificar movimentos dos pokemons
+- Validar inicialização da classe pokémon com mais de 1 tipo
