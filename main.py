@@ -2,14 +2,35 @@ import csv
 from pokemon_obj import Pokemon_char
 from battle import Pokemon_battle
 
-__author__ = "diogo.shiroto"
-__date__ = "24/01/2024"
+__author__ = "rafaeleao"
+__date__ = "21/02/2024"
 __version__ = open("version").readline()
 
 
 types = ["Normal", "Fighting", "Flying", "Poison", "Ground", "Rock", "Bug", "Ghost", "Steel", "Fire", "Water", "Grass", "Electric", "Psychic", "Ice", "Dragon", "Dark", "Fairy"]
 battle = Pokemon_battle()
 
+def pokeInput(battle, pokelist):
+
+    wrong_input = True
+    while wrong_input:
+        pokemon1 = input("Digite o nome do primeiro Pokemon: ")
+        poke_validation, pokemon1 = battle.pokenameValidation(pokemon1, pokelist)
+        if poke_validation == True:
+            wrong_input = False
+        else:
+            print("Nome incorreto")
+
+    wrong_input = True
+    while wrong_input:
+        pokemon2 = input("Digite o nome do segundo Pokemon: ")
+        poke_validation, pokemon2 = battle.pokenameValidation(pokemon2, pokelist)
+        if poke_validation == True:
+            wrong_input = False
+        else:
+            print("Nome incorreto")
+    
+    return pokemon1, pokemon2
 
 # Tratamento dos dados
 file = open('data/pokemon.csv')
@@ -18,39 +39,36 @@ csvreader = csv.reader(file)
 file = open('data/tipagem.csv')
 csvtipagem = csv.reader(file)
 
-file = open('data/tipagem.csv')
-csvtipagem = csv.reader(file)
+file = open('data/poke_move_lvl.csv')
+csvmovelvl = csv.reader(file)
+
+file = open('data/poke_moves.csv')
+csvmoves = csv.reader(file)
 
 types_matchup = []
-
 for row in csvtipagem:
     types_matchup.append(row)
 
 pokelist = []
 for row in csvreader:
-    pokelist.append(row[1:4])
-    
+    pokelist.append(row[0:4])
 pokelist = pokelist[1:]
 
+pokemovelist = []
+for row in csvmovelvl:
+    pokemovelist.append(row)
+pokemovelist = pokemovelist[1:]    
+
+pokemoves = []
+for row in csvmoves:
+    row.pop(2)
+    pokemoves.append(row[1:])
+pokemoves = pokemoves[2:]
+
+
+print(pokemoves)
 # Identificação dos Pokemons
-
-wrong_input = True
-while wrong_input:
-    pokemon1 = input("Digite o nome do primeiro Pokemon: ")
-    poke_validation, pokemon1 = battle.pokenameValidation(pokemon1, pokelist)
-    if poke_validation == True:
-        wrong_input = False
-    else:
-        print("Nome incorreto")
-
-wrong_input = True
-while wrong_input:
-    pokemon2 = input("Digite o nome do segundo Pokemon: ")
-    poke_validation, pokemon2 = battle.pokenameValidation(pokemon2, pokelist)
-    if poke_validation == True:
-        wrong_input = False
-    else:
-        print("Nome incorreto")
+pokemon1, pokemon2 = pokeInput(battle, pokelist)   
 
 
 # Preparando pokemons

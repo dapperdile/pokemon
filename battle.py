@@ -28,7 +28,7 @@ class Pokemon_battle:
         pokeinfo = None
         validation = False
         for poke in pokelist:
-            if input_name == poke[0]:
+            if input_name == poke[1]:
                 validation = True
                 pokeinfo = poke
                 break
