@@ -31,6 +31,18 @@ def pokeInput(battle, pokelist):
     
     return pokemon1, pokemon2
 
+def pokeMoveInput(pokename, lvllist, movelist):
+    wrong_input = True
+    while wrong_input:
+        lvl = input("Digite o level do Pokemon ", pokename, ": ")
+        if 0 < lvl < 101:
+            wrong_input = False
+        else:
+            print("Valor do level incorreto")
+
+    
+    
+    return pokemon1, pokemon2
 
 # Tratamento dos dados
 file = open('data/pokemon.csv')
@@ -51,7 +63,8 @@ for row in csvtipagem:
 
 pokelist = []
 for row in csvreader:
-    pokelist.append(row[0:4])
+    row.pop(4)
+    pokelist.append(row[0:10])
 pokelist = pokelist[1:]
 
 pokemovelist = []
@@ -66,11 +79,9 @@ for row in csvmoves:
 pokemoves = pokemoves[2:]
 
 
-
 # Identificação dos Pokemons
 pokemon1, pokemon2 = pokeInput(battle, pokelist)
-print('pokemon1=',pokemon1)
-print('pokemon2=',pokemon2)
+
 
 
 # Preparando pokemons
@@ -91,10 +102,12 @@ poke_1_moves = [{
     "pp": 40
 }]
 
-pokemon1 = Pokemon_char(dex_number=1, poke_type='grass', lvl=1, moves=poke_1_moves)
-print("----- TESTE 1 pokemon1 = ",  pokemon1.poke_type)
+print(" Teste novo", pokemon1, pokemon2)
+pokemon1 = Pokemon_char(pokemon1, lvl=1, moves=[])
+pokemon2 = Pokemon_char(pokemon2, lvl=1, moves=[])
 
-print(pokemon1,' vs ', pokemon2)
+
+print(pokemon1.name,' vs ', pokemon2.name)
 
 wrong_input = True
 while wrong_input:
