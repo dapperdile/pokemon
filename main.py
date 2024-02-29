@@ -3,7 +3,7 @@ from pokemon_obj import Pokemon_char
 from battle import Pokemon_battle
 
 __author__ = "janio.almeida"
-__date__ = "21/02/2024"
+__date__ = "28/02/2024"
 __version__ = open("version").readline()
 
 
@@ -33,16 +33,33 @@ def pokeInput(battle, pokelist):
 
 def pokeMoveInput(pokename, lvllist, movelist):
     wrong_input = True
+    str_question = "Digite o level do Pokemon " + pokename + ": "
     while wrong_input:
-        lvl = input("Digite o level do Pokemon ", pokename, ": ")
+        lvl = int(input(str_question))
         if 0 < lvl < 101:
             wrong_input = False
         else:
             print("Valor do level incorreto")
 
+
+    moveslearning = []
+    for row in lvllist:
+        if row[0] == pokename and int(row[1]) <= lvl:
+            moveslearning.append(row[2])
+    print('moveslearning=', moveslearning)
     
-    
-    return pokemon1, pokemon2
+
+    moveslearned = [] if len(moveslearning) >4 else moveslearning
+    while len(moveslearned)  < 4 and len(moveslearning) > len(moveslearned):
+        move = input("Digite o movimento do Pokemon: ")
+        if move in moveslearning:
+            moveslearned.append(move)
+        else:
+            print('Movimento incorreto')
+
+    #implementar a busca das informaçoes de cada movimento.
+
+    return moveslearned
 
 # Tratamento dos dados
 file = open('data/pokemon.csv')
@@ -85,6 +102,8 @@ pokemon1, pokemon2 = pokeInput(battle, pokelist)
 
 
 # Preparando pokemons
+poke_1_moves = pokeMoveInput(pokemon1[1], pokemovelist, pokemoves)
+
 poke_1_moves = [{
     "name": "Tackle",
     "type": "Normal",
