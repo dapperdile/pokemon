@@ -10,22 +10,53 @@ __version__ = open("version").readline()
 types = ["Normal", "Fighting", "Flying", "Poison", "Ground", "Rock", "Bug", "Ghost", "Steel", "Fire", "Water", "Grass", "Electric", "Psychic", "Ice", "Dragon", "Dark", "Fairy"]
 battle = Pokemon_battle()
 
-def pokeInput(battle, pokelist):
+def pokenameValidation(input_name, pokelist):
+    pokechoice = []
+    pokechoicename = []
+    pokeinfo = None
+    validation = False
+    for poke in pokelist:
+        if input_name in poke[1]:
+            pokechoice.append(poke)
+            pokechoicename.append(poke[1])
+            #validation = True
+            #pokeinfo = poke
+            #break
+    
+    return pokechoice, pokechoicename
+
+def pokeInput(pokelist):
     wrong_input = True
     while wrong_input:
         pokemon1 = input("Digite o nome do primeiro Pokemon: ")
-        poke_validation, pokemon1 = battle.pokenameValidation(pokemon1, pokelist)
-        if poke_validation == True:
-            wrong_input = False
+        pokechoice1, pokechoice1name = pokenameValidation(pokemon1, pokelist)
+        if len(pokechoice1) > 1:
+            pokemon1 = input(f"Selecione o pokemon {pokechoice1name}: ")
+            for index, pokechname in enumerate(pokechoice1name):
+                if pokemon1 == pokechname:
+                    pokemon1 = pokechoice1[index]
+                    wrong_input = False
+                    break
+        elif len(pokechoice1) == 1:
+            pokemon1 = pokechoice1[0]
+            break
         else:
             print("Nome incorreto")
 
     wrong_input = True
     while wrong_input:
         pokemon2 = input("Digite o nome do segundo Pokemon: ")
-        poke_validation, pokemon2 = battle.pokenameValidation(pokemon2, pokelist)
-        if poke_validation == True:
-            wrong_input = False
+        pokechoice2, pokechoice2name = pokenameValidation(pokemon2, pokelist)
+        if len(pokechoice2) > 1:
+            pokemon2 = input(f"Selecione o pokemon {pokechoice2name}: ")
+            for index, pokechname in enumerate(pokechoice2name):
+                if pokemon2 == pokechname:
+                    pokemon2 = pokechoice2[index]
+                    wrong_input = False
+                    break
+        elif len(pokechoice2) == 1:
+            pokemon2 = pokechoice2[0]
+            break
         else:
             print("Nome incorreto")
     
@@ -112,33 +143,14 @@ pokemoves = pokemoves[2:]
 
 
 # Identificação dos Pokemons
-pokemon1, pokemon2 = pokeInput(battle, pokelist)
-
-
+pokemon1, pokemon2 = pokeInput(pokelist)
 
 # Preparando pokemons
 poke_1_moves = pokeMoveInput(pokemon1[1], pokemovelist, pokemoves)
+poke_2_moves = pokeMoveInput(pokemon2[1], pokemovelist, pokemoves)
 
-poke_1_moves = [{
-    "name": "Tackle",
-    "type": "Normal",
-    "category": "Physical",
-    "power": 40,
-    "accuracy": 1,
-    "pp": 35
-},
-{
-    "name": "Growl",
-    "type": "Normal",
-    "category": "Status",
-    "power": None,
-    "accuracy": 1,
-    "pp": 40
-}]
-
-print(" Teste novo", pokemon1, pokemon2)
-pokemon1 = Pokemon_char(pokemon1, lvl=1, moves=[])
-pokemon2 = Pokemon_char(pokemon2, lvl=1, moves=[])
+pokemon1 = Pokemon_char(pokemon1, lvl=1, moves=poke_1_moves)
+pokemon2 = Pokemon_char(pokemon2, lvl=1, moves=poke_2_moves)
 
 
 print(pokemon1.name,' vs ', pokemon2.name)

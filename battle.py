@@ -24,18 +24,6 @@ class Pokemon_battle:
         return result
 
 
-    def pokenameValidation(self, input_name, pokelist):
-        pokeinfo = None
-        validation = False
-        for poke in pokelist:
-            if input_name == poke[1]:
-                validation = True
-                pokeinfo = poke
-                break
-        
-        return validation, pokeinfo
-
-
     def attackValidation(self, input_attack, types):
         validation = False
         index = types.index(input_attack)
