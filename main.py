@@ -2,8 +2,8 @@ import csv
 from pokemon_obj import Pokemon_char
 from battle import Pokemon_battle
 
-__author__ = "janio.almeida"
-__date__ = "28/02/2024"
+__author__ = "rafael.bernardo"
+__date__ = "06/03/2024"
 __version__ = open("version").readline()
 
 
@@ -57,9 +57,25 @@ def pokeMoveInput(pokename, lvllist, movelist):
         else:
             print('Movimento incorreto')
 
-    #implementar a busca das informaçoes de cada movimento.
+    
+    movesinfo = []
+    for move in moveslearned:
+        for moveinfo in movelist:
+            if move == moveinfo[0]:
+                movesinfo.append({
+                    "name": moveinfo[0],
+                    "effect": moveinfo[1],
+                    "type": moveinfo[2],
+                    "kind": moveinfo[3],
+                    "power": moveinfo[4],
+                    "accuracy": moveinfo[5],
+                    "pp": moveinfo[6]
+                })
 
-    return moveslearned
+                break
+            
+    return movesinfo
+
 
 # Tratamento dos dados
 file = open('data/pokemon.csv')
@@ -91,7 +107,6 @@ pokemovelist = pokemovelist[1:]
 
 pokemoves = []
 for row in csvmoves:
-    row.pop(2)
     pokemoves.append(row[1:])
 pokemoves = pokemoves[2:]
 
