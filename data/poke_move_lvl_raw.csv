@@ -1,0 +1,186 @@
+Ponyta
+1,Tackle,Normal,Physical,40,100%,35
+1,Growl,Normal,Status,—,100%,40
+5,Tail Whip,Normal,Status,—,100%,30
+10,Ember,Fire,Special,40,100%,25
+15,Flame Charge,Fire,Physical,50,100%,20
+20,Agility,Psychic,Status,—,—%,30
+25,Flame Wheel,Fire,Physical,60,100%,25
+30,Stomp,Normal,Physical,65,100%,20
+35,Fire Spin,Fire,Special,35,85%,15
+41,Take Down,Normal,Physical,90,85%,20
+45,Inferno,Fire,Special,100,50%,5
+50,Fire Blast,Fire,Special,110,85%,5
+55,Flare Blitz,Fire,Physical,120,100%,15
+Rapidash
+1,Smart Strike,Steel,Physical,70,—%,10
+1,Megahorn,Bug,Physical,120,85%,10
+1,Poison Jab,Poison,Physical,80,100%,20
+1,Tackle,Normal,Physical,40,100%,35
+1,Quick Attack,Normal,Physical,40,100%,30
+1,Growl,Normal,Status,—,100%,40
+1,Tail Whip,Normal,Status,—,100%,30
+1,Ember,Fire,Special,40,100%,25
+Evo.,Smart Strike,Steel,Physical,70,—%,10
+15,Flame Charge,Fire,Physical,50,100%,20
+20,Agility,Psychic,Status,—,—%,30
+25,Flame Wheel,Fire,Physical,60,100%,25
+30,Stomp,Normal,Physical,65,100%,20
+35,Fire Spin,Fire,Special,35,85%,15
+43,Take Down,Normal,Physical,90,85%,20
+49,Inferno,Fire,Special,100,50%,5
+56,Fire Blast,Fire,Special,110,85%,5
+63,Flare Blitz,Fire,Physical,120,100%,15
+Slowpoke
+1,Tackle,Normal,Physical,40,100%,35
+1,Curse,Ghost,Status,—,—%,10
+3,Growl,Normal,Status,—,100%,40
+6,Water Gun,Water,Special,40,100%,25
+9,Yawn,Normal,Status,—,—%,10
+12,Confusion,Psychic,Special,50,100%,25
+15,Disable,Normal,Status,—,100%,20
+18,Water Pulse,Water,Special,60,100%,20
+21,Headbutt,Normal,Physical,70,100%,15
+24,Zen Headbutt,Psychic,Physical,80,90%,15
+27,Amnesia,Psychic,Status,—,—%,20
+30,Surf,Water,Special,90,100%,15
+33,Slack Off,Normal,Status,—,—%,5
+36,Psychic,Psychic,Special,90,100%,10
+39,Psych Up,Normal,Status,—,—%,10
+42,Rain Dance,Water,Status,—,—%,5
+45,Heal Pulse,Psychic,Status,—,—%,10
+Slowbro
+1,Withdraw,Water,Status,—,—%,40
+1,Tackle,Normal,Physical,40,100%,35
+1,Curse,Ghost,Status,—,—%,10
+1,Growl,Normal,Status,—,100%,40
+1,Water Gun,Water,Special,40,100%,25
+Rem.,Future Sight,Psychic,Special,120,100%,10
+9,Yawn,Normal,Status,—,—%,10
+12,Confusion,Psychic,Special,50,100%,25
+15,Disable,Normal,Status,—,100%,20
+18,Water Pulse,Water,Special,60,100%,20
+21,Headbutt,Normal,Physical,70,100%,15
+24,Zen Headbutt,Psychic,Physical,80,90%,15
+27,Amnesia,Psychic,Status,—,—%,20
+30,Surf,Water,Special,90,100%,15
+33,Slack Off,Normal,Status,—,—%,5
+36,Psychic,Psychic,Special,90,100%,10
+41,Psych Up,Normal,Status,—,—%,10
+46,Rain Dance,Water,Status,—,—%,5
+51,Heal Pulse,Psychic,Status,—,—%,10
+Magnemite
+1,Thunder Shock,Electric,Special,40,100%,30
+1,Tackle,Normal,Physical,40,100%,35
+4,Supersonic,Normal,Status,—,55%,20
+8,Thunder Wave,Electric,Status,—,90%,20
+12,Electro Ball,Electric,Special,—,100%,10
+16,Gyro Ball,Steel,Physical,—,100%,5
+20,Spark,Electric,Physical,65,100%,20
+24,Screech,Normal,Status,—,85%,40
+28,Magnet Rise,Electric,Status,—,—%,10
+32,Flash Cannon,Steel,Special,80,100%,10
+36,Discharge,Electric,Special,80,100%,15
+40,Metal Sound,Steel,Status,—,85%,40
+44,Light Screen,Psychic,Status,—,—%,30
+48,Lock-On,Normal,Status,—,—%,5
+52,Zap Cannon,Electric,Special,120,50%,5
+Magneton
+1,Electric Terrain,Electric,Status,—,—%,10
+1,Thunder Shock,Electric,Special,40,100%,30
+1,Tackle,Normal,Physical,40,100%,35
+1,Supersonic,Normal,Status,—,55%,20
+1,Thunder Wave,Electric,Status,—,90%,20
+Evo.,Tri Attack,Normal,Special,80,100%,10
+12,Electro Ball,Electric,Special,—,100%,10
+16,Gyro Ball,Steel,Physical,—,100%,5
+20,Spark,Electric,Physical,65,100%,20
+24,Screech,Normal,Status,—,85%,40
+28,Magnet Rise,Electric,Status,—,—%,10
+34,Flash Cannon,Steel,Special,80,100%,10
+40,Discharge,Electric,Special,80,100%,15
+46,Metal Sound,Steel,Status,—,85%,40
+52,Light Screen,Psychic,Status,—,—%,30
+58,Lock-On,Normal,Status,—,—%,5
+64,Zap Cannon,Electric,Special,120,50%,5
+Farfetch'd
+1,Peck,Flying,Physical,35,100%,35
+1,Sand Attack,Ground,Status,—,100%,15
+5,Leer,Normal,Status,—,100%,30
+10,Fury Cutter,Bug,Physical,40,95%,20
+15,Cut,Normal,Physical,50,95%,30
+20,Aerial Ace,Flying,Physical,60,—%,20
+25,Air Cutter,Flying,Special,60,95%,25
+30,Knock Off,Dark,Physical,65,100%,20
+35,False Swipe,Normal,Physical,40,100%,40
+40,Slash,Normal,Physical,70,100%,20
+45,Swords Dance,Normal,Status,—,—%,20
+50,Air Slash,Flying,Special,75,95%,15
+55,Leaf Blade,Grass,Physical,90,100%,15
+60,Agility,Psychic,Status,—,—%,30
+65,Brave Bird,Flying,Physical,120,100%,15
+Doduo
+1,Peck,Flying,Physical,35,100%,35
+1,Growl,Normal,Status,—,100%,40
+5,Quick Attack,Normal,Physical,40,100%,30
+9,Fury Attack,Normal,Physical,15,85%,20
+14,Pluck,Flying,Physical,60,100%,20
+19,Double Hit,Normal,Physical,35,90%,10
+23,Agility,Psychic,Status,—,—%,30
+27,Uproar,Normal,Special,90,100%,10
+30,Acupressure,Normal,Status,—,—%,30
+33,Swords Dance,Normal,Status,—,—%,20
+36,Drill Peck,Flying,Physical,80,100%,20
+39,Endeavor,Normal,Physical,—,100%,5
+43,Thrash,Normal,Physical,120,100%,10
+Dodrio
+1,Peck,Flying,Physical,35,100%,35
+1,Growl,Normal,Status,—,100%,40
+1,Quick Attack,Normal,Physical,40,100%,30
+Evo.,Tri Attack,Normal,Special,80,100%,10
+12,Fury Attack,Normal,Physical,15,85%,20
+15,Pluck,Flying,Physical,60,100%,20
+19,Double Hit,Normal,Physical,35,90%,10
+23,Agility,Psychic,Status,—,—%,30
+26,Uproar,Normal,Special,90,100%,10
+30,Acupressure,Normal,Status,—,—%,30
+34,Swords Dance,Normal,Status,—,—%,20
+38,Drill Peck,Flying,Physical,80,100%,20
+43,Endeavor,Normal,Physical,—,100%,5
+50,Thrash,Normal,Physical,120,100%,10
+Seel
+1,Headbutt,Normal,Physical,70,100%,15
+3,Growl,Normal,Status,—,100%,40
+7,Charm,Fairy,Status,—,100%,20
+11,Icy Wind,Ice,Special,55,95%,15
+13,Encore,Normal,Status,—,100%,5
+17,Ice Shard,Ice,Physical,40,100%,30
+21,Rest,Psychic,Status,—,—%,5
+23,Aqua Ring,Water,Status,—,—%,20
+27,Aurora Beam,Ice,Special,65,100%,20
+31,Aqua Jet,Water,Physical,40,100%,20
+33,Brine,Water,Special,65,100%,10
+37,Take Down,Normal,Physical,90,85%,20
+41,Dive,Water,Physical,80,100%,10
+43,Aqua Tail,Water,Physical,90,90%,10
+47,Ice Beam,Ice,Special,90,100%,10
+51,Safeguard,Normal,Status,—,—%,25
+53,Snowscape,Ice,Status,—,—%,10
+Dewgong
+1,Headbutt,Normal,Physical,70,100%,15
+1,Growl,Normal,Status,—,100%,40
+1,Icy Wind,Ice,Special,55,95%,15
+Evo.,Sheer Cold,Ice,Special,—,30%,5
+13,Encore,Normal,Status,—,100%,5
+17,Ice Shard,Ice,Physical,40,100%,30
+21,Rest,Psychic,Status,—,—%,5
+23,Aqua Ring,Water,Status,—,—%,20
+27,Aurora Beam,Ice,Special,65,100%,20
+31,Aqua Jet,Water,Physical,40,100%,20
+33,Brine,Water,Special,65,100%,10
+39,Take Down,Normal,Physical,90,85%,20
+45,Dive,Water,Physical,80,100%,10
+49,Aqua Tail,Water,Physical,90,90%,10
+55,Ice Beam,Ice,Special,90,100%,10
+61,Safeguard,Normal,Status,—,—%,25
+65,Snowscape,Ice,Status,—,—%,10
