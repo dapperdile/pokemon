@@ -3,7 +3,7 @@ from pokemon_obj import Pokemon_char
 from battle import Pokemon_battle
 
 __author__ = "rafael.bernardo"
-__date__ = "06/03/2024"
+__date__ = "20/03/2024"
 __version__ = open("version").readline()
 
 
@@ -13,21 +13,16 @@ battle = Pokemon_battle()
 def pokenameValidation(input_name, pokelist):
     pokechoice = []
     pokechoicename = []
-    pokeinfo = None
-    validation = False
     for poke in pokelist:
         if input_name in poke[1]:
             pokechoice.append(poke)
             pokechoicename.append(poke[1])
-            #validation = True
-            #pokeinfo = poke
-            #break
+            
     
     return pokechoice, pokechoicename
 
 def pokeInput(pokelist):
-    wrong_input = True
-    while wrong_input:
+    while True:
         pokemon1 = input("Digite o nome do primeiro Pokemon: ")
         pokechoice1, pokechoice1name = pokenameValidation(pokemon1, pokelist)
         if len(pokechoice1) > 1:
@@ -35,7 +30,6 @@ def pokeInput(pokelist):
             for index, pokechname in enumerate(pokechoice1name):
                 if pokemon1 == pokechname:
                     pokemon1 = pokechoice1[index]
-                    wrong_input = False
                     break
         elif len(pokechoice1) == 1:
             pokemon1 = pokechoice1[0]
@@ -43,8 +37,7 @@ def pokeInput(pokelist):
         else:
             print("Nome incorreto")
 
-    wrong_input = True
-    while wrong_input:
+    while True:
         pokemon2 = input("Digite o nome do segundo Pokemon: ")
         pokechoice2, pokechoice2name = pokenameValidation(pokemon2, pokelist)
         if len(pokechoice2) > 1:
@@ -52,7 +45,6 @@ def pokeInput(pokelist):
             for index, pokechname in enumerate(pokechoice2name):
                 if pokemon2 == pokechname:
                     pokemon2 = pokechoice2[index]
-                    wrong_input = False
                     break
         elif len(pokechoice2) == 1:
             pokemon2 = pokechoice2[0]
@@ -63,25 +55,25 @@ def pokeInput(pokelist):
     return pokemon1, pokemon2
 
 def pokeMoveInput(pokename, lvllist, movelist):
-    wrong_input = True
     str_question = "Digite o level do Pokemon " + pokename + ": "
-    while wrong_input:
+    while True:
         lvl = int(input(str_question))
         if 0 < lvl < 101:
-            wrong_input = False
+            break
         else:
             print("Valor do level incorreto")
+            
 
 
     moveslearning = []
     for row in lvllist:
         if row[0] == pokename and int(row[1]) <= lvl:
             moveslearning.append(row[2])
-    print('moveslearning=', moveslearning)
+    print('Possiveis movimentos: ', moveslearning)
     
 
-    moveslearned = [] if len(moveslearning) >4 else moveslearning
-    while len(moveslearned)  < 4 and len(moveslearning) > len(moveslearned):
+    moveslearned = [] if len(moveslearning) > 4 else moveslearning
+    while len(moveslearned) < 4:
         move = input("Digite o movimento do Pokemon: ")
         if move in moveslearning:
             moveslearned.append(move)

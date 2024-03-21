@@ -8,7 +8,7 @@ class Pokemon_battle:
         index_defense = None
         index_defense1 = None
 
-        for index,valor in enumerate(types):
+        for index, valor in enumerate(types):
             if valor == attack:
                 index_attack = index
             if valor == defense:
