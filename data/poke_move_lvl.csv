@@ -564,6 +564,30 @@ Ninetales
 1,Disable,Normal,Status,—,100%,20
 1,Quick Attack,Normal,Physical,40,100%,30
 
+# Jânio 39 à 76
+Jigglypuff 
+1	Sweet Kiss	Fairy	Status	—	75%	10
+1	Disarming Voice	Fairy	Special	40	—%	15
+1	Disable	Normal	Status	—	100%	20
+1	Charm	Fairy	Status	—	100%	20
+1	Sing	Normal	Status	—	55%	15
+1	Pound	Normal	Physical	40	100%	35
+1	Copycat	Normal	Status	—	—%	20
+1	Defense Curl	Normal	Status	—	—%	40
+4	Echoed Voice	Normal	Special	40	100%	15
+8	Covet	Normal	Physical	60	100%	25
+12	Stockpile	Normal	Status	—	—%	20
+12	Spit Up	Normal	Special	—	100%	10
+12	Swallow	Normal	Status	—	—%	10
+16	Round	Normal	Special	60	100%	15
+20	Rest	Psychic	Status	—	—%	5
+24	Body Slam	Normal	Physical	85	100%	15
+28	Mimic	Normal	Status	—	—%	10
+32	Gyro Ball	Steel	Physical	—	100%	5
+36	Hyper Voice	Normal	Special	90	100%	10
+44	Double-Edge	Normal	Physical	120	100%	15
+
+
 # Diogo 77 à 151 (Excluindo megas)
 Ponyta
 1,Tackle,Normal,Physical,40,100%,35
