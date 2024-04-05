@@ -1,3 +1,3 @@
-- Definir o calculo dos status dos pokemons 
-- dex numero 38 Rafael / 39  aos 76 Jânio / 77 aos 114 Diogo /o resto Daniel até o 151  
--
+- Incrementar o calculo dos status dos pokemons 
+- 39 (Jigglypuff) aos 76 Jânio no poke_move_lvl.csv
+- Gerar IVs aleatorios para pokemon quando o jogador escolher

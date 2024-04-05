@@ -5,9 +5,9 @@ class Pokemon_char:
 		self.poke_type2 = pokemon[3]
 		self.lvl = lvl
 		self.moves = moves
-		self.hp = pokemon[4]
-		self.attack = pokemon[5]
-		self.deffence = pokemon[6]
-		self.sattack = pokemon[7]
-		self.sdeffence = pokemon[8]
-		self.speed = pokemon[9]
+		self.hp = round(pokemon[4]/4) + 2 * lvl
+		self.attack = round(pokemon[5]/9) + lvl
+		self.deffence = round(pokemon[6]/9) + lvl
+		self.sattack = round(pokemon[7]/9) + lvl
+		self.sdeffence = round(pokemon[8]/9) + lvl
+		self.speed = round(pokemon[9]/9) + lvl
