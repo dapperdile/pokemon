@@ -107,7 +107,7 @@ csvreader = csv.reader(file)
 file = open('data/tipagem.csv')
 csvtipagem = csv.reader(file)
 
-file = open('data/poke_move_lvl.csv')
+file = open('data/poke_move_lvl_processed.csv')
 csvmovelvl = csv.reader(file)
 
 file = open('data/poke_moves.csv')
