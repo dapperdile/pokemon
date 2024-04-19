@@ -1,3 +1,1 @@
-- Incrementar o calculo dos status dos pokemons 
 - 39 (Jigglypuff) aos 76 Jânio no poke_move_lvl.csv
-- Gerar IVs aleatorios para pokemon quando o jogador escolher

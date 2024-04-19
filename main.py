@@ -1,3 +1,4 @@
+import os
 import csv
 from pokemon_obj import Pokemon_char
 from battle import Pokemon_battle
@@ -39,6 +40,7 @@ def pokeInput(pokelist):
 
     while True:
         pokemon2 = input("Digite o nome do segundo Pokemon: ")
+        os.system("cls")
         pokechoice2, pokechoice2name = pokenameValidation(pokemon2, pokelist)
         if len(pokechoice2) > 1:
             pokemon2 = input(f"Selecione o pokemon {pokechoice2name}: ")
@@ -97,7 +99,7 @@ def pokeMoveInput(pokename, lvllist, movelist):
 
                 break
             
-    return movesinfo
+    return movesinfo, lvl
 
 
 # Tratamento dos dados
@@ -138,11 +140,11 @@ pokemoves = pokemoves[2:]
 pokemon1, pokemon2 = pokeInput(pokelist)
 
 # Preparando pokemons
-poke_1_moves = pokeMoveInput(pokemon1[1], pokemovelist, pokemoves)
-poke_2_moves = pokeMoveInput(pokemon2[1], pokemovelist, pokemoves)
+poke_1_moves, lvlpoke1 = pokeMoveInput(pokemon1[1], pokemovelist, pokemoves)
+poke_2_moves, lvlpoke2 = pokeMoveInput(pokemon2[1], pokemovelist, pokemoves)
 
-pokemon1 = Pokemon_char(pokemon1, lvl=1, moves=poke_1_moves)
-pokemon2 = Pokemon_char(pokemon2, lvl=1, moves=poke_2_moves)
+pokemon1 = Pokemon_char(pokemon1, lvlpoke1, moves=poke_1_moves)
+pokemon2 = Pokemon_char(pokemon2, lvlpoke2, moves=poke_2_moves)
 
 
 print(pokemon1.name,' vs ', pokemon2.name)
