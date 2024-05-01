@@ -1,5 +1,6 @@
 import os
 import csv
+import pprint
 from pokemon_obj import Pokemon_char
 from battle import Pokemon_battle
 
@@ -64,14 +65,17 @@ def pokeMoveInput(pokename, lvllist, movelist):
             break
         else:
             print("Valor do level incorreto")
-            
+    print()
 
 
     moveslearning = []
     for row in lvllist:
         if row[0] == pokename and int(row[1]) <= lvl:
             moveslearning.append(row[2])
-    print('Possiveis movimentos: ', moveslearning)
+    print('Possiveis movimentos: ')
+    print()
+    print(moveslearning)
+    print()
     
 
     moveslearned = [] if len(moveslearning) > 4 else moveslearning
@@ -81,6 +85,7 @@ def pokeMoveInput(pokename, lvllist, movelist):
             moveslearned.append(move)
         else:
             print('Movimento incorreto')
+    os.system("cls")
 
     
     movesinfo = []
