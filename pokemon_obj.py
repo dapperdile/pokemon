@@ -19,4 +19,10 @@ class Pokemon_char:
 		self.sattack = round((int(pokemon[7]) + self.IVsattack)/9) + lvl
 		self.sdeffence = round((int(pokemon[8]) + self.IVsdeffence)/9) + lvl
 		self.speed = round((int(pokemon[9]) + self.IVspeed)/9) + lvl
+	
+	def moveValidation(self, move):
+		for mv in self.moves:
+			if mv["name"] == move:
+				return True
+		return False
 

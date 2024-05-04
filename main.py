@@ -24,7 +24,8 @@ def pokenameValidation(input_name, pokelist):
     return pokechoice, pokechoicename
 
 def pokeInput(pokelist):
-    while True:
+    notvalidate = True
+    while notvalidate:
         pokemon1 = input("Digite o nome do primeiro Pokemon: ")
         pokechoice1, pokechoice1name = pokenameValidation(pokemon1, pokelist)
         if len(pokechoice1) > 1:
@@ -32,6 +33,7 @@ def pokeInput(pokelist):
             for index, pokechname in enumerate(pokechoice1name):
                 if pokemon1 == pokechname:
                     pokemon1 = pokechoice1[index]
+                    notvalidate = False
                     break
         elif len(pokechoice1) == 1:
             pokemon1 = pokechoice1[0]
@@ -39,7 +41,8 @@ def pokeInput(pokelist):
         else:
             print("Nome incorreto")
 
-    while True:
+    notvalidate = True
+    while notvalidate:
         pokemon2 = input("Digite o nome do segundo Pokemon: ")
         os.system("cls")
         pokechoice2, pokechoice2name = pokenameValidation(pokemon2, pokelist)
@@ -48,6 +51,7 @@ def pokeInput(pokelist):
             for index, pokechname in enumerate(pokechoice2name):
                 if pokemon2 == pokechname:
                     pokemon2 = pokechoice2[index]
+                    notvalidate = False
                     break
         elif len(pokechoice2) == 1:
             pokemon2 = pokechoice2[0]
@@ -153,13 +157,17 @@ pokemon2 = Pokemon_char(pokemon2, lvlpoke2, moves=poke_2_moves)
 
 
 print(pokemon1.name,' vs ', pokemon2.name)
+for move in pokemon1.moves:
+    print (move)
+
 
 wrong_input = True
 while wrong_input:
-    attack = input("Digite o tipo do ataque: ")
-    attack_validation = battle.attackValidation(attack, types)
+    attack = input("Digite o nome do movimento: ")
+    attack_validation = pokemon1.moveValidation(attack)
     if attack_validation == True:
         wrong_input = False
+        print('movimento validado')
     else:
         print("Nome incorreto")
 
