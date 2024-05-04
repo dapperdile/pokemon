@@ -5,7 +5,7 @@ from pokemon_obj import Pokemon_char
 from battle import Pokemon_battle
 
 __author__ = "rafael.bernardo"
-__date__ = "20/03/2024"
+__date__ = "04/05/2024"
 __version__ = open("version").readline()
 
 
@@ -76,14 +76,11 @@ def pokeMoveInput(pokename, lvllist, movelist):
     for row in lvllist:
         if row[0] == pokename and int(row[1]) <= lvl:
             moveslearning.append(row[2])
-    print('Possiveis movimentos: ')
-    print()
-    print(moveslearning)
-    print()
+    print('Possiveis movimentos: \n')
+    print(moveslearning, "\n")
     
-
     moveslearned = [] if len(moveslearning) > 4 else moveslearning
-    while len(moveslearned) < 4:
+    while len(moveslearned) < 4 and moveslearned != moveslearning:
         move = input("Digite o movimento do Pokemon: ")
         if move in moveslearning:
             moveslearned.append(move)
@@ -170,10 +167,3 @@ while wrong_input:
         print('movimento validado')
     else:
         print("Nome incorreto")
-
-defense = pokemon2[1]
-defense1 = pokemon2[2]
-
-result = battle.typeAdvantage(attack, defense, defense1, types_matchup, types)
-
-print("Multiplicação de dano = ", result)

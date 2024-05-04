@@ -1,1 +1,2 @@
 - 39 (Jigglypuff) aos 76 Jânio no poke_move_lvl.csv
+ - Definir uma função para combate
