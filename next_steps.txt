@@ -1,2 +1,9 @@
-- 39 (Jigglypuff) aos 76 Jânio no poke_move_lvl.csv
- - Definir uma função para combate
+- Definir uma função para combate
+    -loop para verificar hp atual
+    -Implementar a segunda escolha de movimento aleatoriamente
+    -Calcular o dano
+        -calcular critico (5%) dobra o dano
+        -super efetivo
+        -Accuracy, validar a precisão
+    -Definir velocidade de quem joga primeiro
+    -
