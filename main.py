@@ -155,7 +155,7 @@ pokemon2 = Pokemon_char(pokemon2, lvlpoke2, moves=poke_2_moves)
 
 print(pokemon1.name,' vs ', pokemon2.name)
 for move in pokemon1.moves:
-    print (move)
+    print (move["name"], "|", move["effect"], "|", move["type"], "|", move["kind"], "|", move["pp"])
 
 
 wrong_input = True
