@@ -14,6 +14,7 @@ class Pokemon_char:
 		self.lvl = lvl
 		self.moves = moves
 		self.hp = round((int(pokemon[4]) + self.IVhp)/4) + 2 * lvl
+		self.currenthp = self.hp
 		self.attack = round((int(pokemon[5]) + self.IVattack)/9) + lvl
 		self.deffence = round((int(pokemon[6]) + self.IVdeffence)/9) + lvl
 		self.sattack = round((int(pokemon[7]) + self.IVsattack)/9) + lvl
@@ -25,4 +26,8 @@ class Pokemon_char:
 			if mv["name"] == move:
 				return True
 		return False
+	
+	def healthdamage(self, damage):
+		self.currenthp -= damage
+	
 

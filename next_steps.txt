@@ -6,4 +6,4 @@
         -super efetivo
         -Accuracy, validar a precisão
     -Definir velocidade de quem joga primeiro
-    -
+- Tratar os pokemons que tem level 'Evo'

@@ -152,18 +152,41 @@ poke_2_moves, lvlpoke2 = pokeMoveInput(pokemon2[1], pokemovelist, pokemoves)
 pokemon1 = Pokemon_char(pokemon1, lvlpoke1, moves=poke_1_moves)
 pokemon2 = Pokemon_char(pokemon2, lvlpoke2, moves=poke_2_moves)
 
-
 print(pokemon1.name,' vs ', pokemon2.name)
+
 for move in pokemon1.moves:
     print (move["name"], "|", move["effect"], "|", move["type"], "|", move["kind"], "|", move["pp"])
+        
 
+battle_state = True
+while battle_state:
+    
 
-wrong_input = True
-while wrong_input:
-    attack = input("Digite o nome do movimento: ")
-    attack_validation = pokemon1.moveValidation(attack)
-    if attack_validation == True:
-        wrong_input = False
-        print('movimento validado')
+    if pokemon1.currenthp > 0 and pokemon2.currenthp > 0:
+        # escolher movimentos
+        for move in pokemon1.moves:
+            print (move["name"], "|", move["effect"], "|", move["type"], "|", move["kind"], "|", move["pp"])
+        
+        # verificar o movimento escolhido
+        wrong_input = True
+        while wrong_input: 
+            attack = input("Digite o nome do movimento: ")
+            attack_validation = pokemon1.moveValidation(attack)
+            if attack_validation == True:
+                wrong_input = False
+                print('movimento validado')
+            else:
+                print("Nome incorreto")
+        
+    elif pokemon1.currenthp > 0 and pokemon2.currenthp == 0:
+        print(f'{pokemon1.name} venceu {pokemon2.name}')
+        battle_state = False
+    
+    elif pokemon1.currenthp == 0 and pokemon2.currenthp > 0:
+        print(f'{pokemon2.name} venceu {pokemon1.name}')
+        battle_state = False
+    
     else:
-        print("Nome incorreto")
+        print ('Os dois pokemons foram derrotados!')
+        battle_state = False
+
