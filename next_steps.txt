@@ -7,3 +7,5 @@
         -Accuracy, validar a precisão
     -Definir velocidade de quem joga primeiro
 - Tratar os pokemons que tem level 'Evo'
+- Refazer a busca na listagem de movimentos (Incompleto)
+    - Completar a descrição dos movimentos (37/37)

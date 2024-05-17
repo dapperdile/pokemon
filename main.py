@@ -19,8 +19,8 @@ def pokenameValidation(input_name, pokelist):
         if input_name in poke[1]:
             pokechoice.append(poke)
             pokechoicename.append(poke[1])
-            
-    
+
+
     return pokechoice, pokechoicename
 
 def pokeInput(pokelist):
@@ -58,7 +58,7 @@ def pokeInput(pokelist):
             break
         else:
             print("Nome incorreto")
-    
+
     return pokemon1, pokemon2
 
 def pokeMoveInput(pokename, lvllist, movelist):
@@ -88,7 +88,6 @@ def pokeMoveInput(pokename, lvllist, movelist):
             print('Movimento incorreto')
     os.system("cls")
 
-    
     movesinfo = []
     for move in moveslearned:
         for moveinfo in movelist:
@@ -104,7 +103,7 @@ def pokeMoveInput(pokename, lvllist, movelist):
                 })
 
                 break
-            
+
     return movesinfo, lvl
 
 
@@ -118,7 +117,7 @@ csvtipagem = csv.reader(file)
 file = open('data/poke_move_lvl_processed.csv')
 csvmovelvl = csv.reader(file)
 
-file = open('data/poke_moves.csv')
+file = open('data/poke_moves_new.csv')
 csvmoves = csv.reader(file)
 
 types_matchup = []
@@ -134,12 +133,12 @@ pokelist = pokelist[1:]
 pokemovelist = []
 for row in csvmovelvl:
     pokemovelist.append(row)
-pokemovelist = pokemovelist[1:]    
+pokemovelist = pokemovelist[1:]
 
 pokemoves = []
 for row in csvmoves:
-    pokemoves.append(row[1:])
-pokemoves = pokemoves[2:]
+    pokemoves.append(row)
+pokemoves = pokemoves[1:]
 
 
 # Identificação dos Pokemons
@@ -154,19 +153,14 @@ pokemon2 = Pokemon_char(pokemon2, lvlpoke2, moves=poke_2_moves)
 
 print(pokemon1.name,' vs ', pokemon2.name)
 
-for move in pokemon1.moves:
-    print (move["name"], "|", move["effect"], "|", move["type"], "|", move["kind"], "|", move["pp"])
-        
 
 battle_state = True
 while battle_state:
-    
-
     if pokemon1.currenthp > 0 and pokemon2.currenthp > 0:
         # escolher movimentos
         for move in pokemon1.moves:
             print (move["name"], "|", move["effect"], "|", move["type"], "|", move["kind"], "|", move["pp"])
-        
+
         # verificar o movimento escolhido
         wrong_input = True
         while wrong_input: 
@@ -177,16 +171,15 @@ while battle_state:
                 print('movimento validado')
             else:
                 print("Nome incorreto")
-        
+
     elif pokemon1.currenthp > 0 and pokemon2.currenthp == 0:
         print(f'{pokemon1.name} venceu {pokemon2.name}')
         battle_state = False
-    
+
     elif pokemon1.currenthp == 0 and pokemon2.currenthp > 0:
         print(f'{pokemon2.name} venceu {pokemon1.name}')
         battle_state = False
-    
+
     else:
         print ('Os dois pokemons foram derrotados!')
         battle_state = False
-
