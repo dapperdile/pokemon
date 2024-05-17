@@ -71,14 +71,10 @@ def pokeMoveInput(pokename, lvllist, movelist):
             print("Valor do level incorreto")
     print()
 
-
-    moveslearning = []
-    for row in lvllist:
-        if row[0] == pokename and int(row[1]) <= lvl:
-            moveslearning.append(row[2])
+    moveslearning = [row[2] for row in lvllist if row[0] == pokename and (row[1] == "Evo." or int(row[1]) <= lvl)]
     print('Possiveis movimentos: \n')
     print(moveslearning, "\n")
-    
+
     moveslearned = [] if len(moveslearning) > 4 else moveslearning
     while len(moveslearned) < 4 and moveslearned != moveslearning:
         move = input("Digite o movimento do Pokemon: ")
@@ -94,12 +90,12 @@ def pokeMoveInput(pokename, lvllist, movelist):
             if move == moveinfo[0]:
                 movesinfo.append({
                     "name": moveinfo[0],
-                    "effect": moveinfo[1],
-                    "type": moveinfo[2],
-                    "kind": moveinfo[3],
-                    "power": moveinfo[4],
-                    "accuracy": moveinfo[5],
-                    "pp": moveinfo[6]
+                    "effect": moveinfo[6],
+                    "type": moveinfo[1],
+                    "kind": moveinfo[2],
+                    "power": moveinfo[3],
+                    "accuracy": moveinfo[4],
+                    "pp": moveinfo[5]
                 })
 
                 break
