@@ -27,11 +27,12 @@ def pokeInput(pokelist):
     notvalidate = True
     while notvalidate:
         pokemon1 = input("Digite o nome do primeiro Pokemon: ")
-        pokechoice1, pokechoice1name = pokenameValidation(pokemon1, pokelist)
+        os.system("cls")
+        pokechoice1, pokechoice1name = pokenameValidation(pokemon1.capitalize(), pokelist)
         if len(pokechoice1) > 1:
             pokemon1 = input(f"Selecione o pokemon {pokechoice1name}: ")
             for index, pokechname in enumerate(pokechoice1name):
-                if pokemon1 == pokechname:
+                if pokemon1.capitalize() == pokechname:
                     pokemon1 = pokechoice1[index]
                     notvalidate = False
                     break
@@ -45,11 +46,11 @@ def pokeInput(pokelist):
     while notvalidate:
         pokemon2 = input("Digite o nome do segundo Pokemon: ")
         os.system("cls")
-        pokechoice2, pokechoice2name = pokenameValidation(pokemon2, pokelist)
+        pokechoice2, pokechoice2name = pokenameValidation(pokemon2.capitalize(), pokelist)
         if len(pokechoice2) > 1:
             pokemon2 = input(f"Selecione o pokemon {pokechoice2name}: ")
             for index, pokechname in enumerate(pokechoice2name):
-                if pokemon2 == pokechname:
+                if pokemon2.capitalize() == pokechname:
                     pokemon2 = pokechoice2[index]
                     notvalidate = False
                     break
