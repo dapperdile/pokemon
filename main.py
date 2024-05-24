@@ -1,11 +1,11 @@
 import os
 import csv
-import pprint
+import random
 from pokemon_obj import Pokemon_char
 from battle import Pokemon_battle
 
-__author__ = "rafael.bernardo"
-__date__ = "04/05/2024"
+__author__ = "janio.almeida"
+__date__ = "23/05/2024"
 __version__ = open("version").readline()
 
 
@@ -62,28 +62,43 @@ def pokeInput(pokelist):
 
     return pokemon1, pokemon2
 
-def pokeMoveInput(pokename, lvllist, movelist):
-    str_question = "Digite o level do Pokemon " + pokename + ": "
-    while True:
-        lvl = int(input(str_question))
-        if 0 < lvl < 101:
-            break
-        else:
-            print("Valor do level incorreto")
-    print()
+def pokeMoveInput(pokename, lvllist, movelist, random_allow = False):
+    if random_allow == False:
+        str_question = "Digite o level do Pokemon " + pokename + ": "
+        while True:
+            lvl = int(input(str_question))
+            if 0 < lvl < 101:
+                break
+            else:
+                print("Valor do level incorreto")
+        print()
 
-    moveslearning = [row[2] for row in lvllist if row[0] == pokename and (row[1] == "Evo." or int(row[1]) <= lvl)]
-    print('Possiveis movimentos: \n')
-    print(moveslearning, "\n")
+        moveslearning = [row[2] for row in lvllist if row[0] == pokename and (row[1] == "Evo." or int(row[1]) <= lvl)]
+        print('Possiveis movimentos: \n')
+        print(moveslearning, "\n")
 
-    moveslearned = [] if len(moveslearning) > 4 else moveslearning
-    while len(moveslearned) < 4 and moveslearned != moveslearning:
-        move = input("Digite o movimento do Pokemon: ")
-        if move in moveslearning:
+        moveslearned = [] if len(moveslearning) > 4 else moveslearning
+        while len(moveslearned) < 4 and len(moveslearned) != len(moveslearning):
+            move = input("Digite o movimento do Pokemon: ")
+            if move in moveslearning:
+                moveslearned.append(move)
+            else:
+                print('Movimento incorreto')
+        os.system("cls")
+
+
+    else:
+        lvl = random.randint(1,100)
+
+        moveslearning = [row[2] for row in lvllist if row[0] == pokename and (row[1] == "Evo." or int(row[1]) <= lvl)]
+
+        moveslearned = [] if len(moveslearning) > 4 else moveslearning
+
+        moveslearning_aux = moveslearning
+        while len(moveslearned) < 4 and len(moveslearned) != len(moveslearning):
+            move = random.choices(moveslearning_aux)[0]
             moveslearned.append(move)
-        else:
-            print('Movimento incorreto')
-    os.system("cls")
+            moveslearning_aux.remove(move)
 
     movesinfo = []
     for move in moveslearned:
@@ -143,7 +158,7 @@ pokemon1, pokemon2 = pokeInput(pokelist)
 
 # Preparando pokemons
 poke_1_moves, lvlpoke1 = pokeMoveInput(pokemon1[1], pokemovelist, pokemoves)
-poke_2_moves, lvlpoke2 = pokeMoveInput(pokemon2[1], pokemovelist, pokemoves)
+poke_2_moves, lvlpoke2 = pokeMoveInput(pokemon2[1], pokemovelist, pokemoves, True)
 
 pokemon1 = Pokemon_char(pokemon1, lvlpoke1, moves=poke_1_moves)
 pokemon2 = Pokemon_char(pokemon2, lvlpoke2, moves=poke_2_moves)
@@ -168,6 +183,10 @@ while battle_state:
                 print('movimento validado')
             else:
                 print("Nome incorreto")
+
+        # escolha aleatoria do movimento do segundo pokemon
+        attack_2 = random.choices(pokemon2.moves)[0]['name']
+        print('primeiro attack', attack, "segundo attack", attack_2)
 
     elif pokemon1.currenthp > 0 and pokemon2.currenthp == 0:
         print(f'{pokemon1.name} venceu {pokemon2.name}')
