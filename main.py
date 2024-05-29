@@ -80,8 +80,8 @@ def pokeMoveInput(pokename, lvllist, movelist, random_allow = False):
         moveslearned = [] if len(moveslearning) > 4 else moveslearning
         while len(moveslearned) < 4 and len(moveslearned) != len(moveslearning):
             move = input("Digite o movimento do Pokemon: ")
-            if move in moveslearning:
-                moveslearned.append(move)
+            if move.title() in moveslearning:
+                moveslearned.append(move.title())
             else:
                 print('Movimento incorreto')
         os.system("cls")
@@ -176,8 +176,8 @@ while battle_state:
         # verificar o movimento escolhido
         wrong_input = True
         while wrong_input: 
-            attack = input("Digite o nome do movimento: ")
-            attack_validation = pokemon1.moveValidation(attack)
+            attack_1 = input("Digite o nome do movimento: ").title()
+            attack_validation = pokemon1.moveValidation(attack_1)
             if attack_validation == True:
                 wrong_input = False
                 print('movimento validado')
@@ -186,7 +186,16 @@ while battle_state:
 
         # escolha aleatoria do movimento do segundo pokemon
         attack_2 = random.choices(pokemon2.moves)[0]['name']
-        print('primeiro attack', attack, "segundo attack", attack_2)
+        
+        # execução do ataque em ordem de velocidade do pokemon
+        if pokemon1.speed > pokemon2.speed:
+            print(pokemon1.speed, pokemon2.speed)
+            print(f"{pokemon1.name} usou {attack_1}")
+            print(f"{pokemon2.name} usou {attack_2}")
+        else:
+            print(pokemon1.speed, pokemon2.speed)
+            print(f"{pokemon2.name} usou {attack_2}")
+            print(f"{pokemon1.name} usou {attack_1}")
 
     elif pokemon1.currenthp > 0 and pokemon2.currenthp == 0:
         print(f'{pokemon1.name} venceu {pokemon2.name}')
