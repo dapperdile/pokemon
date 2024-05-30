@@ -1,5 +1,6 @@
 import os
 import csv
+import json
 import random
 from pokemon_obj import Pokemon_char
 from battle import Pokemon_battle
@@ -118,6 +119,27 @@ def pokeMoveInput(pokename, lvllist, movelist, random_allow = False):
 
     return movesinfo, lvl
 
+def movePriority(prioritylist, move1, move2, speed1, speed2):
+    validation = True
+    while validation:
+        inpriority = []
+        for move, value in prioritylist.items():
+            inpriority.append(move)
+        if move1 in inpriority and move2 in inpriority:
+            value1 = int(value[move1])
+            value2 = int(value[move2])
+            if value1 > value2:
+                return move1
+            elif value1 < value2:
+                return move2
+        elif move1 in inpriority:
+            return move1
+        elif move2 in inpriority:
+            return move2
+        elif speed1 > speed2:
+            return move1
+        else:
+            return move2
 
 # Tratamento dos dados
 file = open('data/pokemon.csv')
@@ -131,6 +153,9 @@ csvmovelvl = csv.reader(file)
 
 file = open('data/poke_moves_new.csv')
 csvmoves = csv.reader(file)
+
+with open('data/poke_move_priority.json', 'r', encoding='utf8') as file:
+    prioritymoves = json.load(file)
 
 types_matchup = []
 for row in csvtipagem:
@@ -188,7 +213,8 @@ while battle_state:
         attack_2 = random.choices(pokemon2.moves)[0]['name']
         
         # execução do ataque em ordem de velocidade do pokemon
-        if pokemon1.speed > pokemon2.speed:
+        attackpriority = movePriority(prioritymoves, attack_1, attack_2, pokemon1.speed, pokemon2.speed)
+        if attackpriority == attack_1:
             print(pokemon1.speed, pokemon2.speed)
             print(f"{pokemon1.name} usou {attack_1}")
             print(f"{pokemon2.name} usou {attack_2}")
@@ -196,6 +222,21 @@ while battle_state:
             print(pokemon1.speed, pokemon2.speed)
             print(f"{pokemon2.name} usou {attack_2}")
             print(f"{pokemon1.name} usou {attack_1}")
+        # if compareMoves(prioritymoves, attack_1, attack_2) == False:
+        #     if pokemon1.speed > pokemon2.speed:
+        #         print(pokemon1.speed, pokemon2.speed)
+        #         print(f"{pokemon1.name} usou {attack_1}")
+        #         print(f"{pokemon2.name} usou {attack_2}")
+        #     else:
+        #         print(pokemon1.speed, pokemon2.speed)
+        #         print(f"{pokemon2.name} usou {attack_2}")
+        #         print(f"{pokemon1.name} usou {attack_1}")
+        # elif compareMoves(prioritymoves, attack_1, attack_2) == attack_1:
+        #     print(f"{pokemon1.name} usou {attack_1}")
+        #     print(f"{pokemon2.name} usou {attack_2}")
+        # else:
+        #     print(f"{pokemon2.name} usou {attack_2}")
+        #     print(f"{pokemon1.name} usou {attack_1}")
 
     elif pokemon1.currenthp > 0 and pokemon2.currenthp == 0:
         print(f'{pokemon1.name} venceu {pokemon2.name}')
