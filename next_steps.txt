@@ -1,8 +1,8 @@
 - Definir uma função para combate
     -Calcular o dano
+        -calcular dano normal
         -calcular critico (5%) dobra o dano
         -super efetivo
         -Accuracy, validar a precisão
-    -Definir velocidade de quem joga primeiro -Rafael
 - Completar a descrição dos movimentos (37/37) - Janio
 - escolha do segundo pokemon aleatoriamente
