@@ -6,3 +6,4 @@
         -Accuracy, validar a precisão
 - Completar a descrição dos movimentos (37/37) - Janio
 - escolha do segundo pokemon aleatoriamente
+- Fazer o sistema apresentar simbolos como ♂ ♀
