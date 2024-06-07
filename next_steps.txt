@@ -4,6 +4,4 @@
         -calcular critico (5%) dobra o dano
         -super efetivo
         -Accuracy, validar a precisão
-- Completar a descrição dos movimentos (37/37) - Janio
-- escolha do segundo pokemon aleatoriamente
-- Fazer o sistema apresentar simbolos como ♂ ♀
+- tirar as virgulas das descrições de movimentos em poke_move_new.csv

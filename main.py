@@ -5,8 +5,8 @@ import random
 from pokemon_obj import Pokemon_char
 from battle import Pokemon_battle
 
-__author__ = "rafael.bernardo"
-__date__ = "30/05/2024"
+__author__ = "janio.almeida"
+__date__ = "06/06/2024"
 __version__ = open("version").readline()
 
 
@@ -24,42 +24,49 @@ def pokenameValidation(input_name, pokelist):
 
     return pokechoice, pokechoicename
 
-def pokeInput(pokelist):
-    notvalidate = True
-    while notvalidate:
-        pokemon1 = input("Digite o nome do primeiro Pokemon: ")
-        os.system("cls")
-        pokechoice1, pokechoice1name = pokenameValidation(pokemon1.capitalize(), pokelist)
-        if len(pokechoice1) > 1:
-            pokemon1 = input(f"Selecione o pokemon {pokechoice1name}: ")
-            for index, pokechname in enumerate(pokechoice1name):
-                if pokemon1.capitalize() == pokechname:
-                    pokemon1 = pokechoice1[index]
-                    notvalidate = False
-                    break
-        elif len(pokechoice1) == 1:
-            pokemon1 = pokechoice1[0]
-            break
-        else:
-            print("Nome incorreto")
+def pokeInput(pokelist, random_allow_1=False, random_allow_2=False):
+    if not random_allow_1:
+        notvalidate = True
+        while notvalidate:
+            pokemon1 = input("Digite o nome do primeiro Pokemon: ")
+            os.system("cls")
+            pokechoice1, pokechoice1name = pokenameValidation(pokemon1.capitalize(), pokelist)
+            if len(pokechoice1) > 1:
+                pokemon1 = input(f"Selecione o pokemon {pokechoice1name}: ")
+                for index, pokechname in enumerate(pokechoice1name):
+                    if pokemon1.capitalize() == pokechname:
+                        pokemon1 = pokechoice1[index]
+                        notvalidate = False
+                        break
+            elif len(pokechoice1) == 1:
+                pokemon1 = pokechoice1[0]
+                break
+            else:
+                print("Nome incorreto")
 
-    notvalidate = True
-    while notvalidate:
-        pokemon2 = input("Digite o nome do segundo Pokemon: ")
-        os.system("cls")
-        pokechoice2, pokechoice2name = pokenameValidation(pokemon2.capitalize(), pokelist)
-        if len(pokechoice2) > 1:
-            pokemon2 = input(f"Selecione o pokemon {pokechoice2name}: ")
-            for index, pokechname in enumerate(pokechoice2name):
-                if pokemon2.capitalize() == pokechname:
-                    pokemon2 = pokechoice2[index]
-                    notvalidate = False
-                    break
-        elif len(pokechoice2) == 1:
-            pokemon2 = pokechoice2[0]
-            break
-        else:
-            print("Nome incorreto")
+    else:
+        pokemon1 = random.choices(pokelist)[0]
+
+    if not random_allow_2:
+        notvalidate = True
+        while notvalidate:
+            pokemon2 = input("Digite o nome do segundo Pokemon: ")
+            os.system("cls")
+            pokechoice2, pokechoice2name = pokenameValidation(pokemon2.capitalize(), pokelist)
+            if len(pokechoice2) > 1:
+                pokemon2 = input(f"Selecione o pokemon {pokechoice2name}: ")
+                for index, pokechname in enumerate(pokechoice2name):
+                    if pokemon2.capitalize() == pokechname:
+                        pokemon2 = pokechoice2[index]
+                        notvalidate = False
+                        break
+            elif len(pokechoice2) == 1:
+                pokemon2 = pokechoice2[0]
+                break
+            else:
+                print("Nome incorreto")
+    else:
+        pokemon2 = random.choices(pokelist)[0]
 
     return pokemon1, pokemon2
 
@@ -184,10 +191,11 @@ pokemoves = pokemoves[1:]
 
 
 # Identificação dos Pokemons
-pokemon1, pokemon2 = pokeInput(pokelist)
+pokemon1, pokemon2 = pokeInput(pokelist, random_allow_1=False, random_allow_2=True)
+print(pokemon1)
 
 # Preparando pokemons
-poke_1_moves, lvlpoke1 = pokeMoveInput(pokemon1[1], pokemovelist, pokemoves)
+poke_1_moves, lvlpoke1 = pokeMoveInput(pokemon1[1], pokemovelist, pokemoves, True)
 poke_2_moves, lvlpoke2 = pokeMoveInput(pokemon2[1], pokemovelist, pokemoves, True)
 
 pokemon1 = Pokemon_char(pokemon1, lvlpoke1, moves=poke_1_moves)
