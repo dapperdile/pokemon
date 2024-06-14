@@ -24,8 +24,8 @@ class Pokemon_char:
 	def moveValidation(self, move):
 		for mv in self.moves:
 			if mv["name"] == move:
-				return True
-		return False
+				return True, mv
+		return False, None
 
 	def healthdamage(self, damage):
 		self.currenthp -= damage

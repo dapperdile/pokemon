@@ -11,7 +11,6 @@ __version__ = open("version").readline()
 
 
 types = ["Normal", "Fighting", "Flying", "Poison", "Ground", "Rock", "Bug", "Ghost", "Steel", "Fire", "Water", "Grass", "Electric", "Psychic", "Ice", "Dragon", "Dark", "Fairy"]
-battle = Pokemon_battle()
 
 def pokenameValidation(input_name, pokelist):
     pokechoice = []
@@ -81,7 +80,7 @@ def pokeMoveInput(pokename, lvllist, movelist, random_allow = False):
                 print("Valor do level incorreto")
         print()
 
-        moveslearning = [row[2] for row in lvllist if row[0] == pokename and (row[1] == "Evo." or int(row[1]) <= lvl)]
+        moveslearning = [row[2] for row in lvllist if row[0] == pokename and (row[1] in ["Evo.", "Rem."] or int(row[1]) <= lvl)]
         print('Possiveis movimentos: \n')
         print(moveslearning, "\n")
 
@@ -189,9 +188,10 @@ for row in csvmoves:
     pokemoves.append(row)
 pokemoves = pokemoves[1:]
 
+battle = Pokemon_battle(types_matchup, types)
 
 # Identificação dos Pokemons
-pokemon1, pokemon2 = pokeInput(pokelist, random_allow_1=False, random_allow_2=True)
+pokemon1, pokemon2 = pokeInput(pokelist, random_allow_1=True, random_allow_2=True)
 print(pokemon1)
 
 # Preparando pokemons
@@ -209,13 +209,13 @@ while battle_state:
     if pokemon1.currenthp > 0 and pokemon2.currenthp > 0:
         # escolher movimentos
         for move in pokemon1.moves:
-            print (move["name"], "|", move["effect"], "|", move["type"], "|", move["kind"], "|", move["pp"])
+            print (move["name"], "|", move["effect"], "|", move["type"], "|", move["kind"], "|", move["pp"], move["power"])
 
         # verificar o movimento escolhido
         wrong_input = True
         while wrong_input: 
             attack_1 = input("Digite o nome do movimento: ").title()
-            attack_validation = pokemon1.moveValidation(attack_1)
+            attack_validation, move_poke1 = pokemon1.moveValidation(attack_1)
             if attack_validation == True:
                 wrong_input = False
                 print('movimento validado')
@@ -223,15 +223,29 @@ while battle_state:
                 print("Nome incorreto")
 
         # escolha aleatoria do movimento do segundo pokemon
-        attack_2 = random.choices(pokemon2.moves)[0]['name']
-
+        attack_2 = random.choices(pokemon2.moves)[0]
+        print(move_poke1, "TESTE")
         # execução do ataque em ordem de velocidade do pokemon
-        attackpriority = movePriority(prioritymoves, attack_1, attack_2, pokemon1.speed, pokemon2.speed)
+        attackpriority = movePriority(prioritymoves, attack_1, attack_2['name'], pokemon1.speed, pokemon2.speed)
         if attackpriority == 1:
+            # calculo do primeiro ataque
             print(f"{pokemon1.name} primeiro usou {attack_1}")
-            print(f"{pokemon2.name} segundo usou {attack_2}")
+
+            attack_points = pokemon1.attack if move_poke1['kind'] == 'Physical' else pokemon1.sattack
+            defense_points = pokemon2.deffence if move_poke1['kind'] == 'Physical' else pokemon2.sdeffence
+
+            damage_2 = battle.damageCalculation(pokemon1.lvl, move_poke1, attack_points, defense_points, pokemon1.poke_type, pokemon1.poke_type2, pokemon2.poke_type, pokemon2.poke_type2)
+            print(damage_1)
+            # calculo do segundo ataque
+            print(f"{pokemon2.name} segundo usou {attack_2['name']}")
+
+            attack_points = pokemon2.attack if attack_2['kind'] == 'Physical' else pokemon2.sattack
+            defense_points = pokemon1.deffence if attack_2['kind'] == 'Physical' else pokemon1.sdeffence
+
+            damage_1 = battle.damageCalculation(pokemon2.lvl, attack_2, attack_points, defense_points, pokemon2.poke_type, pokemon2.poke_type2, pokemon1.poke_type, pokemon1.poke_type2)
+            print(damage_1)
         else:
-            print(f"{pokemon2.name} segundo usou {attack_2}")
+            print(f"{pokemon2.name} segundo usou {attack_2['name']}")
             print(f"{pokemon1.name} primeiro usou {attack_1}")
 
     elif pokemon1.currenthp > 0 and pokemon2.currenthp == 0:

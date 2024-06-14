@@ -1,40 +1,50 @@
 import random
 
 class Pokemon_battle:
-    def __init__(self):
-        self.id = None
+    def __init__(self, types_matchup, types):
+        self.types_matchup = types_matchup
+        self.types = types
     
-    
-    def typeAdvantage(self, attack, defense, defense1, types_matchup, types):
+    def __typeAdvantage(self, attack, defense, defense1):
         index_attack = None
         index_defense = None
         index_defense1 = None
 
-        for index, valor in enumerate(types):
+        for index, valor in enumerate(self.types):
             if valor == attack:
                 index_attack = index
             if valor == defense:
                 index_defense = index
             if valor == defense1:
                 index_defense1 = index
-
+        print(type(self.types_matchup[index_attack][index_defense]), "TESTEEEEEEEEEEEEEEEEEEEEEEEEEE")
         if index_defense1: 
-            result = int(types_matchup[index_attack][index_defense]) * int(types_matchup[index_attack][index_defense1])
+            
+            result = int(self.types_matchup[index_attack][index_defense]) * int(self.types_matchup[index_attack][index_defense1])
         else:
-            result = int(types_matchup[index_attack][index_defense])
+            result = int(self.types_matchup[index_attack][index_defense])
 
         return result
 
 
-    def attackValidation(self, input_attack, types):
+    def attackValidation(self, input_attack):
         validation = False
-        index = types.index(input_attack)
+        index = self.types.index(input_attack)
         if index >= 0:
             validation = True
 
         return validation
 
 
-    def damageCalculation(lvl, move_info, attack, defense, type_1, type_2):
+    def damageCalculation(self, lvl, move_info, attack, defense, poke_1_type_1, poke_1_type_2, 
+                          poke_2_type_1, poke_2_type_2):
         crit = 2 if random.randint(0, 100)  <= 5  else  1
-        rand =  random.randint(217, 255)  / 255
+        rand = random.randint(217, 255) / 255
+        stab = 1.5 if move_info["type"] == poke_1_type_1 or poke_1_type_2 else 1
+        matchup = self.__typeAdvantage(move_info['type'], poke_2_type_1, poke_2_type_2)
+
+        raw_damage = (((((2 * lvl * crit)/5) + 2) * int(move_info['power']) * ((attack / defense))/50) + 2)
+
+        damage = raw_damage * stab * matchup * rand
+
+        return damage
