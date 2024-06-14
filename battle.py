@@ -1,3 +1,5 @@
+import random
+
 class Pokemon_battle:
     def __init__(self):
         self.id = None
@@ -29,5 +31,10 @@ class Pokemon_battle:
         index = types.index(input_attack)
         if index >= 0:
             validation = True
-        
+
         return validation
+
+
+    def damageCalculation(lvl, move_info, attack, defense, type_1, type_2):
+        crit = 2 if random.randint(0, 100)  <= 5  else  1
+        rand =  random.randint(217, 255)  / 255
