@@ -17,12 +17,12 @@ class Pokemon_battle:
                 index_defense = index
             if valor == defense1:
                 index_defense1 = index
-        print(type(self.types_matchup[index_attack][index_defense]), "TESTEEEEEEEEEEEEEEEEEEEEEEEEEE")
+
         if index_defense1: 
             
-            result = int(self.types_matchup[index_attack][index_defense]) * int(self.types_matchup[index_attack][index_defense1])
+            result = float(self.types_matchup[index_attack][index_defense]) * float(self.types_matchup[index_attack][index_defense1])
         else:
-            result = int(self.types_matchup[index_attack][index_defense])
+            result = float(self.types_matchup[index_attack][index_defense])
 
         return result
 
@@ -42,8 +42,9 @@ class Pokemon_battle:
         rand = random.randint(217, 255) / 255
         stab = 1.5 if move_info["type"] == poke_1_type_1 or poke_1_type_2 else 1
         matchup = self.__typeAdvantage(move_info['type'], poke_2_type_1, poke_2_type_2)
+        move_power = int(move_info['power']) if move_info['power'].isdigit() else 0
 
-        raw_damage = (((((2 * lvl * crit)/5) + 2) * int(move_info['power']) * ((attack / defense))/50) + 2)
+        raw_damage = (((((2 * lvl * crit)/5) + 2) * move_power * ((attack / defense))/50) + 2)
 
         damage = raw_damage * stab * matchup * rand
 
