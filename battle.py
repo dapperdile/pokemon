@@ -43,9 +43,9 @@ class Pokemon_battle:
         stab = 1.5 if move_info["type"] == poke_1_type_1 or poke_1_type_2 else 1
         matchup = self.__typeAdvantage(move_info['type'], poke_2_type_1, poke_2_type_2)
         move_power = int(move_info['power']) if move_info['power'].isdigit() else 0
-
-        raw_damage = (((((2 * lvl * crit)/5) + 2) * move_power * ((attack / defense))/50) + 2)
-
+        calculate_crit = (((2 * lvl * crit)/5) + 2)
+        raw_damage = ((calculate_crit * move_power * ((attack / defense))/50) + 2)
+        
         damage = raw_damage * stab * matchup * rand
 
-        return damage
+        return 0 if move_power == 0 else damage

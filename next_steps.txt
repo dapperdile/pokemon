@@ -7,6 +7,4 @@
         -adicionar status do pokemon(dormindo, envenenado, paralizado)
 - tirar as virgulas das descrições de movimentos em poke_move_new.csv
 - adicionar um sistema de logs
-- definir como aprender movimentos com Rem. - Rafael
-- bug de tipagem no calculo de dano - Rafael
-- bug de IndexError na linha226 -- attack_2 = random.choices(pokemon2.moves)[0] - Janio
+- bug de IndexError -- attack_2 = random.choices(pokemon2.moves)[0] - Watchlist

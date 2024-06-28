@@ -1,3 +1,4 @@
+import time
 import os
 import csv
 import json
@@ -5,8 +6,8 @@ import random
 from pokemon_obj import Pokemon_char
 from battle import Pokemon_battle
 
-__author__ = "janio.almeida"
-__date__ = "06/06/2024"
+__author__ = "rafael.bernardo"
+__date__ = "27/06/2024"
 __version__ = open("version").readline()
 
 
@@ -80,7 +81,9 @@ def pokeMoveInput(pokename, lvllist, movelist, random_allow = False):
                 print("Valor do level incorreto")
         print()
 
-        moveslearning = [row[2] for row in lvllist if row[0] == pokename and (row[1] in ["Evo.", "Rem."] or (row[1].isdigit() and int(row[1]) <= lvl))]
+        moveslearning = [row[2] for row in lvllist if row[0] == pokename 
+                         and (row[1] in ["Evo.", "Rem."] 
+                              or (row[1].isdigit() and int(row[1]) <= lvl))]
         print('Possiveis movimentos: \n')
         print(moveslearning, "\n")
 
@@ -97,7 +100,9 @@ def pokeMoveInput(pokename, lvllist, movelist, random_allow = False):
     else:
         lvl = random.randint(1,100)
 
-        moveslearning = [row[2] for row in lvllist if row[0] == pokename and (row[1] in ["Evo.", "Rem."] or (row[1].isdigit() and int(row[1]) <= lvl))]
+        moveslearning = [row[2] for row in lvllist if row[0] == pokename 
+                         and (row[1] in ["Evo.", "Rem."] 
+                              or (row[1].isdigit() and int(row[1]) <= lvl))]
 
         moveslearned = [] if len(moveslearning) > 4 else moveslearning
 
@@ -209,12 +214,14 @@ while battle_state:
     if pokemon1.currenthp > 0 and pokemon2.currenthp > 0:
         # escolher movimentos
         for move in pokemon1.moves:
-            print (move["name"], "|", move["effect"], "|", move["type"], "|", move["kind"], "|", move["pp"], move["power"])
+            print (move["name"], "|", move["effect"],
+                    "|", move["type"], "|", move["kind"], "|", move["pp"], move["power"])
 
-        # verificar o movimento escolhido
+        attack_1 = random.choices(pokemon1.moves)[0]["name"]
+        # # verificar o movimento escolhido
         wrong_input = True
         while wrong_input: 
-            attack_1 = input("Digite o nome do movimento: ").title()
+            # attack_1 = input("Digite o nome do movimento: ").title()
             attack_validation, move_poke1 = pokemon1.moveValidation(attack_1)
             if attack_validation == True:
                 wrong_input = False
@@ -226,7 +233,8 @@ while battle_state:
         attack_2 = random.choices(pokemon2.moves)[0]
         
         # execução do ataque em ordem de velocidade do pokemon
-        attackpriority = movePriority(prioritymoves, attack_1, attack_2['name'], pokemon1.speed, pokemon2.speed)
+        attackpriority = movePriority(prioritymoves, attack_1, attack_2['name'],
+                                       pokemon1.speed, pokemon2.speed)
         if attackpriority == 1:
             # calculo do primeiro ataque
             print("#" * 30)
@@ -235,8 +243,10 @@ while battle_state:
             attack_points = pokemon1.attack if move_poke1['kind'] == 'Physical' else pokemon1.sattack
             defense_points = pokemon2.deffence if move_poke1['kind'] == 'Physical' else pokemon2.sdeffence
 
-            damage_2 = battle.damageCalculation(pokemon1.lvl, move_poke1, attack_points, defense_points, pokemon1.poke_type, pokemon1.poke_type2, pokemon2.poke_type, pokemon2.poke_type2)
-            print(f"Acertou com {damage_2} de dano!")
+            damage_2 = battle.damageCalculation(pokemon1.lvl, move_poke1, attack_points, 
+                                                defense_points, pokemon1.poke_type, pokemon1.poke_type2, 
+                                                pokemon2.poke_type, pokemon2.poke_type2)
+            print(f"Acertou com {damage_2:.2f} de dano!")
 
             # calculo do segundo ataque
             print("#" * 30)
@@ -245,13 +255,16 @@ while battle_state:
             attack_points = pokemon2.attack if attack_2['kind'] == 'Physical' else pokemon2.sattack
             defense_points = pokemon1.deffence if attack_2['kind'] == 'Physical' else pokemon1.sdeffence
 
-            damage_1 = battle.damageCalculation(pokemon2.lvl, attack_2, attack_points, defense_points, pokemon2.poke_type, pokemon2.poke_type2, pokemon1.poke_type, pokemon1.poke_type2)
-            print(f"Acertou com {damage_1} de dano!")
+            damage_1 = battle.damageCalculation(pokemon2.lvl, attack_2, attack_points, 
+                                                defense_points, pokemon2.poke_type, pokemon2.poke_type2, 
+                                                pokemon1.poke_type, pokemon1.poke_type2)
+            print(f"Acertou com {damage_1:.2f} de dano!")
             print("#" * 30)
+            
         else:
             print(f"{pokemon2.name} segundo usou {attack_2['name']}")
             print(f"{pokemon1.name} primeiro usou {attack_1}")
-
+        time.sleep(5)
     elif pokemon1.currenthp > 0 and pokemon2.currenthp == 0:
         print(f'{pokemon1.name} venceu {pokemon2.name}')
         battle_state = False
