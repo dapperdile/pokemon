@@ -1,10 +1,9 @@
 - Definir uma função para combate
     -Calcular o dano
-        -calcular dano normal
-        -calcular critico (5%) dobra o dano
-        -super efetivo
+        -adicionar informação se foi dano critico ou super efetivo
         -Accuracy, validar a precisão
         -adicionar status do pokemon(dormindo, envenenado, paralizado)
+    -Construir  movimentos com efeitos especiais, para no maximo 36 primeiros pokemons.(Clefable)
 - tirar as virgulas das descrições de movimentos em poke_move_new.csv
 - adicionar um sistema de logs
 - bug de IndexError -- attack_2 = random.choices(pokemon2.moves)[0] - Watchlist
