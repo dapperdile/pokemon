@@ -3,14 +3,18 @@ import os
 import csv
 import json
 import random
+import log__ as log
+from datetime import datetime
 from pokemon_obj import Pokemon_char
 from battle import Pokemon_battle
 
 __author__ = "janio.almeida"
 __date__ = "04/07/2024"
 __version__ = open("version").readline()
+__project__ = "Pokemon"
 
 
+timestamp = datetime.now().strftime("%Y-%m-%dT%H_%M_%S")
 types = ["Normal", "Fighting", "Flying", "Poison", "Ground", "Rock", "Bug", "Ghost", "Steel", "Fire", "Water", "Grass", "Electric", "Psychic", "Ice", "Dragon", "Dark", "Fairy"]
 
 def pokenameValidation(input_name, pokelist):
@@ -157,96 +161,108 @@ def movePriority(prioritylist, move1, move2, speed1, speed2):
         else:
             return 2
 
-# Tratamento dos dados
-file = open('data/pokemon.csv')
-csvreader = csv.reader(file)
+try:
+    log_poke = log.log(__project__, __version__, timestamp)
 
-file = open('data/tipagem.csv')
-csvtipagem = csv.reader(file)
+    log_poke.internal(log_name="import-pokemons-data", timestamp=timestamp) # Início do log
+    # Tratamento dos dados
+    file = open('data/pokemon.csv')
+    csvreader = csv.reader(file)
 
-file = open('data/poke_move_lvl_processed.csv')
-csvmovelvl = csv.reader(file)
+    file = open('data/tipagem.csv')
+    csvtipagem = csv.reader(file)
 
-file = open('data/poke_moves_new.csv')
-csvmoves = csv.reader(file)
+    file = open('data/poke_move_lvl_processed.csv')
+    csvmovelvl = csv.reader(file)
 
-with open('data/poke_move_priority.json', 'r', encoding='utf8') as file:
-    prioritymoves = json.load(file)
+    file = open('data/poke_moves_new.csv')
+    csvmoves = csv.reader(file)
+    log_poke.internal_finish(log_name="import-pokemons-data", success=True) # Fechamento do log
 
-types_matchup = []
-for row in csvtipagem:
-    types_matchup.append(row)
+    with open('data/poke_move_priority.json', 'r', encoding='utf8') as file:
+        prioritymoves = json.load(file)
 
-pokelist = []
-for row in csvreader:
-    row.pop(4)
-    pokelist.append(row[0:10])
-pokelist = pokelist[1:]
+    types_matchup = []
+    for row in csvtipagem:
+        types_matchup.append(row)
 
-pokemovelist = []
-for row in csvmovelvl:
-    pokemovelist.append(row)
-pokemovelist = pokemovelist[1:]
+    pokelist = []
+    for row in csvreader:
+        row.pop(4)
+        pokelist.append(row[0:10])
+    pokelist = pokelist[1:]
 
-pokemoves = []
-for row in csvmoves:
-    pokemoves.append(row)
-pokemoves = pokemoves[1:]
+    pokemovelist = []
+    for row in csvmovelvl:
+        pokemovelist.append(row)
+    pokemovelist = pokemovelist[1:]
 
-battle = Pokemon_battle(types_matchup, types)
+    pokemoves = []
+    for row in csvmoves:
+        pokemoves.append(row)
+    pokemoves = pokemoves[1:]
 
-# Identificação dos Pokemons
-pokemon1, pokemon2 = pokeInput(pokelist, random_allow_1=True, random_allow_2=True)
-print(pokemon1)
+    battle = Pokemon_battle(types_matchup, types)
 
-# Preparando pokemons
-poke_1_moves, lvlpoke1 = pokeMoveInput(pokemon1[1], pokemovelist, pokemoves, True)
-poke_2_moves, lvlpoke2 = pokeMoveInput(pokemon2[1], pokemovelist, pokemoves, True)
+    # Identificação dos Pokemons
+    pokemon1, pokemon2 = pokeInput(pokelist, random_allow_1=True, random_allow_2=True)
+    print(pokemon1)
 
-pokemon1 = Pokemon_char(pokemon1, lvlpoke1, moves=poke_1_moves)
-pokemon2 = Pokemon_char(pokemon2, lvlpoke2, moves=poke_2_moves)
+    # Preparando pokemons
+    poke_1_moves, lvlpoke1 = pokeMoveInput(pokemon1[1], pokemovelist, pokemoves, True)
+    poke_2_moves, lvlpoke2 = pokeMoveInput(pokemon2[1], pokemovelist, pokemoves, True)
 
-print(pokemon1.name,' vs ', pokemon2.name)
+    pokemon1 = Pokemon_char(pokemon1, lvlpoke1, moves=poke_1_moves)
+    pokemon2 = Pokemon_char(pokemon2, lvlpoke2, moves=poke_2_moves)
+
+    print(pokemon1.name,' vs ', pokemon2.name)
 
 
-battle_state = True
-while battle_state:
-    if pokemon1.currenthp > 0 and pokemon2.currenthp > 0:
-        # escolher movimentos
-        for move in pokemon1.moves:
-            print (move["name"], "|", move["effect"],
-                    "|", move["type"], "|", move["kind"], "|", move["pp"], move["power"])
+    battle_state = True
+    while battle_state:
+        if pokemon1.currenthp > 0 and pokemon2.currenthp > 0:
+            # escolher movimentos
+            for move in pokemon1.moves:
+                print (move["name"], "|", move["effect"],
+                        "|", move["type"], "|", move["kind"], "|", move["pp"], move["power"])
 
-        attack_1 = random.choices(pokemon1.moves)[0]
-        # wrong_input = True
-        # while wrong_input: 
-        #     # attack_1 = input("Digite o nome do movimento: ").title()
-        #     attack_validation, move_poke1 = pokemon1.moveValidation(attack_1)
-        #     if attack_validation == True:
-        #         wrong_input = False
-        #         print('movimento validado')
-        #     else:
-        #         print("Nome incorreto")
+            attack_1 = random.choices(pokemon1.moves)[0]
+            # wrong_input = True
+            # while wrong_input: 
+            #     # attack_1 = input("Digite o nome do movimento: ").title()
+            #     attack_validation, move_poke1 = pokemon1.moveValidation(attack_1)
+            #     if attack_validation == True:
+            #         wrong_input = False
+            #         print('movimento validado')
+            #     else:
+            #         print("Nome incorreto")
 
-        # escolha aleatoria do movimento do segundo pokemon
-        attack_2 = random.choices(pokemon2.moves)[0]
-        
-        # execução do ataque em ordem de velocidade do pokemon
-        attackpriority = movePriority(prioritymoves, attack_1['name'], attack_2['name'],
-                                       pokemon1.speed, pokemon2.speed)
-        if attackpriority == 1:
-            battle.battleRound(pokemon1, pokemon2, attack_1, attack_2)
+            # escolha aleatoria do movimento do segundo pokemon
+            attack_2 = random.choices(pokemon2.moves)[0]
+            
+            # execução do ataque em ordem de velocidade do pokemon
+            attackpriority = movePriority(prioritymoves, attack_1['name'], attack_2['name'],
+                                        pokemon1.speed, pokemon2.speed)
+            if attackpriority == 1:
+                battle.battleRound(pokemon1, pokemon2, attack_1, attack_2)
+            else:
+                battle.battleRound(pokemon2, pokemon1, attack_1, attack_2)
+            time.sleep(1)
+        elif pokemon1.currenthp > 0 and pokemon2.currenthp <= 0:
+            print(f'{pokemon1.name} venceu {pokemon2.name}')
+            battle_state = False
+
+        elif pokemon1.currenthp <= 0 and pokemon2.currenthp > 0:
+            print(f'{pokemon2.name} venceu {pokemon1.name}')
+            battle_state = False
+
         else:
-            battle.battleRound(pokemon2, pokemon1, attack_1, attack_2)
-        time.sleep(1)
-    elif pokemon1.currenthp > 0 and pokemon2.currenthp <= 0:
-        print(f'{pokemon1.name} venceu {pokemon2.name}')
-        battle_state = False
+            print ('Os dois pokemons foram derrotados!')
+            battle_state = False
 
-    elif pokemon1.currenthp <= 0 and pokemon2.currenthp > 0:
-        print(f'{pokemon2.name} venceu {pokemon1.name}')
-        battle_state = False
+except Exception as ex:
+    print("steps_error = ", log_poke.show_steps_error())
+    print("Error: ", ex)
 
-    else:
-        print ('Os dois pokemons foram derrotados!')
-        battle_state = False
+finally:
+    log_poke.save()
