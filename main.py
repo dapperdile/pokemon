@@ -179,6 +179,8 @@ try:
     csvmoves = csv.reader(file)
     log_poke.internal_finish(log_name="import-pokemons-data", success=True) # Fechamento do log
 
+    log_poke.internal(log_name="data-treatment", timestamp=timestamp) # Início do log
+    
     with open('data/poke_move_priority.json', 'r', encoding='utf8') as file:
         prioritymoves = json.load(file)
 
@@ -202,22 +204,31 @@ try:
         pokemoves.append(row)
     pokemoves = pokemoves[1:]
 
-    battle = Pokemon_battle(types_matchup, types)
+    log_poke.internal_finish(log_name="data-treatment", success=True) # Fechamento do log
 
+    log_poke.internal(log_name="battle-initialization", timestamp=timestamp) # Início do log
+    battle = Pokemon_battle(types_matchup, types)
+    log_poke.internal_finish(log_name="battle-initialization", success=True) # Fechamento do log
+
+    log_poke.internal(log_name="pokemon-moves-input", timestamp=timestamp) # Início do log
     # Identificação dos Pokemons
-    pokemon1, pokemon2 = pokeInput(pokelist, random_allow_1=False, random_allow_2=True)
+    pokemon1, pokemon2 = pokeInput(pokelist, random_allow_1=True, random_allow_2=True)
     print(pokemon1)
 
     # Preparando pokemons
     poke_1_moves, lvlpoke1 = pokeMoveInput(pokemon1[1], pokemovelist, pokemoves, True)
     poke_2_moves, lvlpoke2 = pokeMoveInput(pokemon2[1], pokemovelist, pokemoves, True)
 
+    log_poke.internal_finish(log_name="pokemon-moves-input", success=True) # Fechamento do log
+
+    log_poke.internal(log_name="pokemon-initialization", timestamp=timestamp) # Início do log
     pokemon1 = Pokemon_char(pokemon1, lvlpoke1, moves=poke_1_moves)
     pokemon2 = Pokemon_char(pokemon2, lvlpoke2, moves=poke_2_moves)
+    log_poke.internal_finish(log_name="pokemon-initialization", success=True) # Fechamento do log
 
     print(pokemon1.name,' vs ', pokemon2.name)
 
-
+    log_poke.internal(log_name="battle-initialization", timestamp=timestamp) # Início do log
     battle_state = True
     while battle_state:
         if pokemon1.currenthp > 0 and pokemon2.currenthp > 0:
@@ -259,6 +270,7 @@ try:
         else:
             print ('Os dois pokemons foram derrotados!')
             battle_state = False
+    log_poke.internal_finish(log_name="battle-initialization", success=True) # Fechamento do log
 
 except Exception as ex:
     print("steps_error = ", log_poke.show_steps_error())
@@ -266,3 +278,4 @@ except Exception as ex:
 
 finally:
     log_poke.save()
+

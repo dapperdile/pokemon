@@ -50,45 +50,60 @@ class Pokemon_battle:
 
         return 0 if move_power == 0 else damage, crit==2, matchup>=2
     
+    def accuracy_check(self, accuracy):
+        if accuracy == "-":
+            return True
+        elif int(accuracy) >= random.randint(0, 100):
+            return True
+        return False
 
     def battleRound(self, pokemon1, pokemon2, attack_1, attack_2):
-        # calculo do primeiro ataque
         print("#" * 30)
         print(f"{pokemon1.name} primeiro usou {attack_1['name']}")
+        if self.accuracy_check(attack_1["accuracy"]):
+            # calculo do primeiro ataque
 
-        attack_points = pokemon1.attack if attack_1['kind'] == 'Physical' else pokemon1.sattack
-        defense_points = pokemon2.deffence if attack_1['kind'] == 'Physical' else pokemon2.sdeffence
+            attack_points = pokemon1.attack if attack_1['kind'] == 'Physical' else pokemon1.sattack
+            defense_points = pokemon2.deffence if attack_1['kind'] == 'Physical' else pokemon2.sdeffence
 
-        damage_2, is_crit_2, is_matchup_2 = self.damageCalculation(pokemon1.lvl, attack_1, attack_points,
-                                            defense_points, pokemon1.poke_type, pokemon1.poke_type2, 
-                                            pokemon2.poke_type, pokemon2.poke_type2)
-        if is_crit_2:
-            print('Foi um ataque crítico!')
-        
-        if is_matchup_2:
-            print('Foi um ataque super efetivo')
+            damage_2, is_crit_2, is_matchup_2 = self.damageCalculation(pokemon1.lvl, attack_1, attack_points,
+                                                defense_points, pokemon1.poke_type, pokemon1.poke_type2, 
+                                                pokemon2.poke_type, pokemon2.poke_type2)
+            if is_crit_2:
+                print('Foi um ataque crítico!')
 
-        print(f"Acertou com {damage_2:.0f} de dano!")
+            if is_matchup_2:
+                print('Foi um ataque super efetivo')
+
+            print(f"Acertou com {damage_2:.0f} de dano!")
+
+        else:
+            print(f"{pokemon1.name} errou!")
 
         # calculo do segundo ataque
         print("#" * 30)
         print(f"{pokemon2.name} segundo usou {attack_2['name']}")
+        if self.accuracy_check(attack_2["accuracy"]):
+            attack_points = pokemon2.attack if attack_2['kind'] == 'Physical' else pokemon2.sattack
+            defense_points = pokemon1.deffence if attack_2['kind'] == 'Physical' else pokemon1.sdeffence
 
-        attack_points = pokemon2.attack if attack_2['kind'] == 'Physical' else pokemon2.sattack
-        defense_points = pokemon1.deffence if attack_2['kind'] == 'Physical' else pokemon1.sdeffence
+            damage_1, is_crit_1, is_matchup_1 = self.damageCalculation(pokemon2.lvl, attack_2, attack_points, 
+                                                defense_points, pokemon2.poke_type, pokemon2.poke_type2, 
+                                                pokemon1.poke_type, pokemon1.poke_type2)
+            if is_crit_1:
+                print('Foi um ataque crítico!')
 
-        damage_1, is_crit_1, is_matchup_1 = self.damageCalculation(pokemon2.lvl, attack_2, attack_points, 
-                                            defense_points, pokemon2.poke_type, pokemon2.poke_type2, 
-                                            pokemon1.poke_type, pokemon1.poke_type2)
-        if is_crit_1:
-            print('Foi um ataque crítico!')
-        
-        if is_matchup_1:
-            print('Foi um ataque super efetivo')
+            if is_matchup_1:
+                print('Foi um ataque super efetivo')
 
-        print(f"Acertou com {damage_1:.0f} de dano!")
-        print("#" * 30)
+            print(f"Acertou com {damage_1:.0f} de dano!")
+            print("#" * 30)
 
-        print(f'vida atual {pokemon2.currenthp}')
-        pokemon2.healthdamage(round(damage_2))
-        print(f'a vida do {pokemon2.name} é {pokemon2.currenthp}')
+            print(f'vida atual {pokemon2.currenthp}')
+            pokemon2.healthdamage(round(damage_2))
+            print(f'a vida do {pokemon2.name} é {pokemon2.currenthp}')
+            print("#" * 30)
+
+        else:
+            print(f"{pokemon2.name} errou!")
+            print("#" * 30)
