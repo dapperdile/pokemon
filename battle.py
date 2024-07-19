@@ -48,35 +48,47 @@ class Pokemon_battle:
         
         damage = raw_damage * stab * matchup * rand
 
-        return 0 if move_power == 0 else damage
+        return 0 if move_power == 0 else damage, crit==2, matchup>=2
     
 
     def battleRound(self, pokemon1, pokemon2, attack_1, attack_2):
         # calculo do primeiro ataque
-            print("#" * 30)
-            print(f"{pokemon1.name} primeiro usou {attack_1['name']}")
+        print("#" * 30)
+        print(f"{pokemon1.name} primeiro usou {attack_1['name']}")
 
-            attack_points = pokemon1.attack if attack_1['kind'] == 'Physical' else pokemon1.sattack
-            defense_points = pokemon2.deffence if attack_1['kind'] == 'Physical' else pokemon2.sdeffence
+        attack_points = pokemon1.attack if attack_1['kind'] == 'Physical' else pokemon1.sattack
+        defense_points = pokemon2.deffence if attack_1['kind'] == 'Physical' else pokemon2.sdeffence
 
-            damage_2 = self.damageCalculation(pokemon1.lvl, attack_1, attack_points,
-                                                defense_points, pokemon1.poke_type, pokemon1.poke_type2, 
-                                                pokemon2.poke_type, pokemon2.poke_type2)
-            print(f"Acertou com {damage_2:.0f} de dano!")
+        damage_2, is_crit_2, is_matchup_2 = self.damageCalculation(pokemon1.lvl, attack_1, attack_points,
+                                            defense_points, pokemon1.poke_type, pokemon1.poke_type2, 
+                                            pokemon2.poke_type, pokemon2.poke_type2)
+        if is_crit_2:
+            print('Foi um ataque crítico!')
+        
+        if is_matchup_2:
+            print('Foi um ataque super efetivo')
 
-            # calculo do segundo ataque
-            print("#" * 30)
-            print(f"{pokemon2.name} segundo usou {attack_2['name']}")
+        print(f"Acertou com {damage_2:.0f} de dano!")
 
-            attack_points = pokemon2.attack if attack_2['kind'] == 'Physical' else pokemon2.sattack
-            defense_points = pokemon1.deffence if attack_2['kind'] == 'Physical' else pokemon1.sdeffence
+        # calculo do segundo ataque
+        print("#" * 30)
+        print(f"{pokemon2.name} segundo usou {attack_2['name']}")
 
-            damage_1 = self.damageCalculation(pokemon2.lvl, attack_2, attack_points, 
-                                                defense_points, pokemon2.poke_type, pokemon2.poke_type2, 
-                                                pokemon1.poke_type, pokemon1.poke_type2)
-            print(f"Acertou com {damage_1:.0f} de dano!")
-            print("#" * 30)
+        attack_points = pokemon2.attack if attack_2['kind'] == 'Physical' else pokemon2.sattack
+        defense_points = pokemon1.deffence if attack_2['kind'] == 'Physical' else pokemon1.sdeffence
 
-            print(f'vida atual {pokemon2.currenthp}')
-            pokemon2.healthdamage(round(damage_2))
-            print(f'a vida do {pokemon2.name} é {pokemon2.currenthp}')
+        damage_1, is_crit_1, is_matchup_1 = self.damageCalculation(pokemon2.lvl, attack_2, attack_points, 
+                                            defense_points, pokemon2.poke_type, pokemon2.poke_type2, 
+                                            pokemon1.poke_type, pokemon1.poke_type2)
+        if is_crit_1:
+            print('Foi um ataque crítico!')
+        
+        if is_matchup_1:
+            print('Foi um ataque super efetivo')
+
+        print(f"Acertou com {damage_1:.0f} de dano!")
+        print("#" * 30)
+
+        print(f'vida atual {pokemon2.currenthp}')
+        pokemon2.healthdamage(round(damage_2))
+        print(f'a vida do {pokemon2.name} é {pokemon2.currenthp}')

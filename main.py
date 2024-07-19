@@ -21,7 +21,7 @@ def pokenameValidation(input_name, pokelist):
     pokechoice = []
     pokechoicename = []
     for poke in pokelist:
-        if input_name in poke[1]:
+        if input_name in poke[1].captalize():
             pokechoice.append(poke)
             pokechoicename.append(poke[1])
 
@@ -205,7 +205,7 @@ try:
     battle = Pokemon_battle(types_matchup, types)
 
     # Identificação dos Pokemons
-    pokemon1, pokemon2 = pokeInput(pokelist, random_allow_1=True, random_allow_2=True)
+    pokemon1, pokemon2 = pokeInput(pokelist, random_allow_1=False, random_allow_2=True)
     print(pokemon1)
 
     # Preparando pokemons
@@ -220,11 +220,15 @@ try:
 
     battle_state = True
     while battle_state:
+        print('----- TESTE 1')
         if pokemon1.currenthp > 0 and pokemon2.currenthp > 0:
+            print('----- TESTE 2')
             # escolher movimentos
             for move in pokemon1.moves:
+                print('----- TESTE 3')
                 print (move["name"], "|", move["effect"],
                         "|", move["type"], "|", move["kind"], "|", move["pp"], move["power"])
+            print('----- TESTE 4')
 
             attack_1 = random.choices(pokemon1.moves)[0]
             # wrong_input = True
@@ -246,7 +250,7 @@ try:
             if attackpriority == 1:
                 battle.battleRound(pokemon1, pokemon2, attack_1, attack_2)
             else:
-                battle.battleRound(pokemon2, pokemon1, attack_1, attack_2)
+                battle.battleRound(pokemon2, pokemon1, attack_2, attack_1)
             time.sleep(1)
         elif pokemon1.currenthp > 0 and pokemon2.currenthp <= 0:
             print(f'{pokemon1.name} venceu {pokemon2.name}')
