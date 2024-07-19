@@ -21,7 +21,7 @@ def pokenameValidation(input_name, pokelist):
     pokechoice = []
     pokechoicename = []
     for poke in pokelist:
-        if input_name in poke[1].captalize():
+        if input_name in poke[1].capitalize():
             pokechoice.append(poke)
             pokechoicename.append(poke[1])
 
@@ -38,7 +38,7 @@ def pokeInput(pokelist, random_allow_1=False, random_allow_2=False):
             if len(pokechoice1) > 1:
                 pokemon1 = input(f"Selecione o pokemon {pokechoice1name}: ")
                 for index, pokechname in enumerate(pokechoice1name):
-                    if pokemon1.capitalize() == pokechname:
+                    if pokemon1.capitalize() == pokechname.capitalize():
                         pokemon1 = pokechoice1[index]
                         notvalidate = False
                         break
@@ -60,7 +60,7 @@ def pokeInput(pokelist, random_allow_1=False, random_allow_2=False):
             if len(pokechoice2) > 1:
                 pokemon2 = input(f"Selecione o pokemon {pokechoice2name}: ")
                 for index, pokechname in enumerate(pokechoice2name):
-                    if pokemon2.capitalize() == pokechname:
+                    if pokemon2.capitalize() == pokechname.capitalize():
                         pokemon2 = pokechoice2[index]
                         notvalidate = False
                         break
@@ -220,15 +220,11 @@ try:
 
     battle_state = True
     while battle_state:
-        print('----- TESTE 1')
         if pokemon1.currenthp > 0 and pokemon2.currenthp > 0:
-            print('----- TESTE 2')
             # escolher movimentos
             for move in pokemon1.moves:
-                print('----- TESTE 3')
                 print (move["name"], "|", move["effect"],
                         "|", move["type"], "|", move["kind"], "|", move["pp"], move["power"])
-            print('----- TESTE 4')
 
             attack_1 = random.choices(pokemon1.moves)[0]
             # wrong_input = True
