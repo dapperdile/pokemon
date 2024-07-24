@@ -1,9 +1,9 @@
 import random
 
 class Pokemon_battle:
-    def __init__(self, types_matchup, types):
+    def __init__(self, types_matchup):
         self.types_matchup = types_matchup
-        self.types = types
+        self.types = ["Normal", "Fighting", "Flying", "Poison", "Ground", "Rock", "Bug", "Ghost", "Steel", "Fire", "Water", "Grass", "Electric", "Psychic", "Ice", "Dragon", "Dark", "Fairy"]
     
     def __typeAdvantage(self, attack, defense, defense1):
         index_attack = None
