@@ -8,7 +8,7 @@ from datetime import datetime
 from pokemon_obj import Pokemon_char
 from battle import Pokemon_battle
 
-__author__ = "janio.almeida"
+__author__ = "rafael.bernardo"
 __date__ = "25/07/2024"
 __version__ = open("version").readline()
 __project__ = "Pokemon"
@@ -212,11 +212,11 @@ try:
 
     log_poke.internal(log_name="pokemon-moves-input", timestamp=timestamp) # Início do log
     # Identificação dos Pokemons
-    pokemon1, pokemon2 = pokeInput(pokelist, random_allow_1=True, random_allow_2=True)
+    pokemon1, pokemon2 = pokeInput(pokelist, random_allow_1=False, random_allow_2=True)
     print(pokemon1)
 
     # Preparando pokemons
-    poke_1_moves, lvlpoke1 = pokeMoveInput(pokemon1[1], pokemovelist, pokemoves, True)
+    poke_1_moves, lvlpoke1 = pokeMoveInput(pokemon1[1], pokemovelist, pokemoves, False)
     poke_2_moves, lvlpoke2 = pokeMoveInput(pokemon2[1], pokemovelist, pokemoves, True)
 
     log_poke.internal_finish(log_name="pokemon-moves-input", success=True, result=[pokemon1, pokemon2]) # Fechamento do log
@@ -228,7 +228,7 @@ try:
 
     print(pokemon1.name,' vs ', pokemon2.name)
 
-    log_poke.internal(log_name="battle-initialization", timestamp=timestamp) # Início do log
+    log_poke.internal(log_name="battle-start", timestamp=timestamp) # Início do log
     battle_state = True
     while battle_state:
         if pokemon1.currenthp > 0 and pokemon2.currenthp > 0:
@@ -237,17 +237,22 @@ try:
                 print (move["name"], "|", move["effect"],
                         "|", move["type"], "|", move["kind"], "|", move["pp"], move["power"])
 
-            attack_1 = random.choices(pokemon1.moves)[0]
-            # wrong_input = True
-            # while wrong_input: 
-            #     # attack_1 = input("Digite o nome do movimento: ").title()
-            #     attack_validation, move_poke1 = pokemon1.moveValidation(attack_1)
-            #     if attack_validation == True:
-            #         wrong_input = False
-            #         print('movimento validado')
-            #     else:
-            #         print("Nome incorreto")
+            # attack_1 = random.choices(pokemon1.moves)[0]
+            wrong_input = True
+            while wrong_input: 
+                attack_1_str = input("Digite o nome do movimento: ").title()
+                attack_validation, move_poke1 = pokemon1.moveValidation(attack_1_str)
+                if attack_validation == True:
+                    wrong_input = False
+                    print('movimento validado')
+                else:
+                    print("Nome incorreto")
+            for move in pokemon1.moves:
+                if move['name'] == attack_1_str:
+                    attack_1 = move
+                    break
 
+            print(f"----- TESTE 1 attack 1 = {attack_1}")
             # escolha aleatoria do movimento do segundo pokemon
             attack_2 = random.choices(pokemon2.moves)[0]
             
@@ -270,7 +275,7 @@ try:
         else:
             print ('Os dois pokemons foram derrotados!')
             battle_state = False
-    log_poke.internal_finish(log_name="battle-initialization", success=True,
+    log_poke.internal_finish(log_name="battle-start", success=True,
                              result=[pokemon1.name, pokemon1.currenthp,
                                      pokemon2.name, pokemon2.currenthp]) # Fechamento do log
 

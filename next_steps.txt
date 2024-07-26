@@ -3,4 +3,5 @@
         -adicionar status do pokemon(dormindo, envenenado, paralizado)
     -Construir  movimentos com efeitos especiais, para no maximo 36 primeiros pokemons.(Clefable)
 - tirar as virgulas das descrições de movimentos em poke_move_new.csv
-
+- BUG: Calculo de debuff está errado
+- BUG: Error:  cannot access local variable 'damage_2' where it is not associated with a value

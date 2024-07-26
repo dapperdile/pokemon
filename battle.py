@@ -4,6 +4,8 @@ class Pokemon_battle:
     def __init__(self, types_matchup, types):
         self.types_matchup = types_matchup
         self.types = types
+        self.buff = [1.5, 2.0, 2.5, 3.0, 3.5, 4.0]
+        self.debuff = [0.67, 0.5, 0.4, 0.33, 0.29, 0.25]
     
     def __typeAdvantage(self, attack, defense, defense1):
         index_attack = None
@@ -62,21 +64,35 @@ class Pokemon_battle:
         print(f"{pokemon1.name} primeiro usou {attack_1['name']}")
         if self.accuracy_check(attack_1["accuracy"]):
             # calculo do primeiro ataque
+            if attack_1['kind'] in ['Physical', 'Special']:
 
-            attack_points = pokemon1.attack if attack_1['kind'] == 'Physical' else pokemon1.sattack
-            defense_points = pokemon2.deffence if attack_1['kind'] == 'Physical' else pokemon2.sdeffence
+                attack_points = pokemon1.attack if attack_1['kind'] == 'Physical' else pokemon1.sattack
+                defense_points = pokemon2.deffence if attack_1['kind'] == 'Physical' else pokemon2.sdeffence
 
-            damage_2, is_crit_2, is_matchup_2 = self.damageCalculation(pokemon1.lvl, attack_1, attack_points,
-                                                defense_points, pokemon1.poke_type, pokemon1.poke_type2, 
-                                                pokemon2.poke_type, pokemon2.poke_type2)
-            if is_crit_2:
-                print('Foi um ataque crítico!')
+                damage_2, is_crit_2, is_matchup_2 = self.damageCalculation(pokemon1.lvl, attack_1, attack_points,
+                                                    defense_points, pokemon1.poke_type, pokemon1.poke_type2, 
+                                                    pokemon2.poke_type, pokemon2.poke_type2)
+                if is_crit_2:
+                    print('Foi um ataque crítico!')
 
-            if is_matchup_2:
-                print('Foi um ataque super efetivo')
+                if is_matchup_2:
+                    print('Foi um ataque super efetivo')
 
-            print(f"Acertou com {damage_2:.0f} de dano!")
+                print(f"Acertou com {damage_2:.0f} de dano!")
 
+            elif attack_1['name'] in ['Growl']:
+                print(f"TESTE 0 attack Pokemon 2 {pokemon2.currentattack}")
+                pokemon2.attackstage = pokemon2.attackstage - 1 if pokemon2.attackstage > -6 else pokemon2.attackstage
+                if pokemon2.attackstage < 0:
+                    pokemon2.currentattack = round(pokemon2.attack * self.debuff[(pokemon2.attackstage * -1) - 1])
+                    print(f"TESTE 2 Indice Debuff {self.debuff[(pokemon2.attackstage * -1) - 1]}")
+                elif pokemon2.attackstage > 0:
+                    pokemon2.currentattack = round(pokemon2.attack * self.buff[pokemon2.attackstage - 1])
+                else:
+                    pokemon2.currentattack = pokemon2.attack
+
+            print(f"Pokemon 2 Attack Stage {pokemon2.attackstage}")
+            print(f"Pokemon 2 Current Attack {pokemon2.currentattack}")
         else:
             print(f"{pokemon1.name} errou!")
 
