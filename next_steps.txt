@@ -3,5 +3,4 @@
         -adicionar status do pokemon(dormindo, envenenado, paralizado)
     -Construir  movimentos com efeitos especiais, para no maximo 36 primeiros pokemons.(Clefable)
 - tirar as virgulas das descrições de movimentos em poke_move_new.csv
-- bug de IndexError -- attack_2 = random.choices(pokemon2.moves)[0] - Watchlist
-- incrementar logs com informação
+

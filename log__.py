@@ -24,12 +24,14 @@ class log:
             "log_name": log_name,
             "timestamp": timestamp,
             "success": False,
-            "data": data
+            "data": data,
+            "result": None,
         }
 
-    def internal_finish(self, log_name, success):
+    def internal_finish(self, log_name, success, result=None):
         step = self.stock.pop(log_name)
         step['success'] = success
+        step['result'] = result
         self.steps.append(step)
 
     def show_steps(self):

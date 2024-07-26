@@ -9,7 +9,7 @@ from pokemon_obj import Pokemon_char
 from battle import Pokemon_battle
 
 __author__ = "janio.almeida"
-__date__ = "04/07/2024"
+__date__ = "25/07/2024"
 __version__ = open("version").readline()
 __project__ = "Pokemon"
 
@@ -219,7 +219,7 @@ try:
     poke_1_moves, lvlpoke1 = pokeMoveInput(pokemon1[1], pokemovelist, pokemoves, True)
     poke_2_moves, lvlpoke2 = pokeMoveInput(pokemon2[1], pokemovelist, pokemoves, True)
 
-    log_poke.internal_finish(log_name="pokemon-moves-input", success=True) # Fechamento do log
+    log_poke.internal_finish(log_name="pokemon-moves-input", success=True, result=[pokemon1, pokemon2]) # Fechamento do log
 
     log_poke.internal(log_name="pokemon-initialization", timestamp=timestamp) # Início do log
     pokemon1 = Pokemon_char(pokemon1, lvlpoke1, moves=poke_1_moves)
@@ -270,7 +270,9 @@ try:
         else:
             print ('Os dois pokemons foram derrotados!')
             battle_state = False
-    log_poke.internal_finish(log_name="battle-initialization", success=True) # Fechamento do log
+    log_poke.internal_finish(log_name="battle-initialization", success=True,
+                             result=[pokemon1.name, pokemon1.currenthp,
+                                     pokemon2.name, pokemon2.currenthp]) # Fechamento do log
 
 except Exception as ex:
     print("steps_error = ", log_poke.show_steps_error())
