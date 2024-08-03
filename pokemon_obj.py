@@ -22,12 +22,12 @@ class Pokemon_char:
 		self.currenthp = self.hp
 		self.currentattack = self.hp
 		self.attackstage = 0
-		self.currentdeffense = self.hp
-		self.deffensestage = 0
+		self.currentdefense = self.hp
+		self.defensestage = 0
 		self.currentsattack = self.hp
 		self.sattackstage = 0
-		self.currentsdeffense = self.hp
-		self.sdeffensestage = 0
+		self.currentsdefense = self.hp
+		self.sdefensestage = 0
 		self.currentspeed = self.hp
 		self.speedstage = 0
 		self.accuracystage = 0

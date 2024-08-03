@@ -180,7 +180,7 @@ try:
     log_poke.internal_finish(log_name="import-pokemons-data", success=True) # Fechamento do log
 
     log_poke.internal(log_name="data-treatment", timestamp=timestamp) # Início do log
-    
+
     with open('data/poke_move_priority.json', 'r', encoding='utf8') as file:
         prioritymoves = json.load(file)
 
@@ -212,11 +212,11 @@ try:
 
     log_poke.internal(log_name="pokemon-moves-input", timestamp=timestamp) # Início do log
     # Identificação dos Pokemons
-    pokemon1, pokemon2 = pokeInput(pokelist, random_allow_1=True, random_allow_2=True)
+    pokemon1, pokemon2 = pokeInput(pokelist, random_allow_1=False, random_allow_2=True)
     print(pokemon1)
 
     # Preparando pokemons
-    poke_1_moves, lvlpoke1 = pokeMoveInput(pokemon1[1], pokemovelist, pokemoves, True)
+    poke_1_moves, lvlpoke1 = pokeMoveInput(pokemon1[1], pokemovelist, pokemoves, False)
     poke_2_moves, lvlpoke2 = pokeMoveInput(pokemon2[1], pokemovelist, pokemoves, True)
 
     log_poke.internal_finish(log_name="pokemon-moves-input", success=True, result=[pokemon1, pokemon2]) # Fechamento do log
@@ -237,20 +237,20 @@ try:
                 print (move["name"], "|", move["effect"],
                         "|", move["type"], "|", move["kind"], "|", move["pp"], move["power"])
 
-            attack_1 = random.choices(pokemon1.moves)[0]
-            # wrong_input = True
-            # while wrong_input: 
-            #     attack_1_str = input("Digite o nome do movimento: ").title()
-            #     attack_validation, move_poke1 = pokemon1.moveValidation(attack_1_str)
-            #     if attack_validation == True:
-            #         wrong_input = False
-            #         print('movimento validado')
-            #     else:
-            #         print("Nome incorreto")
-            # for move in pokemon1.moves:
-            #     if move['name'] == attack_1_str:
-            #         attack_1 = move
-            #         break
+            # attack_1 = random.choices(pokemon1.moves)[0]
+            wrong_input = True
+            while wrong_input: 
+                attack_1_str = input("Digite o nome do movimento: ").title()
+                attack_validation, move_poke1 = pokemon1.moveValidation(attack_1_str)
+                if attack_validation == True:
+                    wrong_input = False
+                    print('movimento validado')
+                else:
+                    print("Nome incorreto")
+            for move in pokemon1.moves:
+                if move['name'] == attack_1_str:
+                    attack_1 = move
+                    break
 
             # escolha aleatoria do movimento do segundo pokemon
             attack_2 = random.choices(pokemon2.moves)[0]

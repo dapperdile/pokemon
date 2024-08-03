@@ -65,8 +65,8 @@ class Pokemon_battle:
         if self.accuracy_check(attack_1["accuracy"]):
             # calculo do primeiro ataque
             if attack_1['kind'] in ['Physical', 'Special']:
-                attack_points = pokemon1.attack if attack_1['kind'] == 'Physical' else pokemon1.sattack
-                defense_points = pokemon2.deffence if attack_1['kind'] == 'Physical' else pokemon2.sdeffence
+                attack_points = pokemon1.currentattack if attack_1['kind'] == 'Physical' else pokemon1.currentsattack
+                defense_points = pokemon2.currentdefense if attack_1['kind'] == 'Physical' else pokemon2.currentsdefense
 
                 damage_1, is_crit_2, is_matchup_2 = self.damageCalculation(pokemon1.lvl, attack_1, attack_points, defense_points, pokemon1.poke_type, pokemon1.poke_type2, 
                 pokemon2.poke_type, pokemon2.poke_type2)
@@ -86,14 +86,11 @@ class Pokemon_battle:
                 pokemon2.attackstage = pokemon2.attackstage - 1 if pokemon2.attackstage > -6 else pokemon2.attackstage
                 if pokemon2.attackstage < 0:
                     pokemon2.currentattack = round(pokemon2.attack * self.debuff[(pokemon2.attackstage * -1) - 1])
-                    print(f"TESTE 2 Indice Debuff {self.debuff[(pokemon2.attackstage * -1) - 1]}")
                 elif pokemon2.attackstage > 0:
                     pokemon2.currentattack = round(pokemon2.attack * self.buff[pokemon2.attackstage - 1])
                 else:
                     pokemon2.currentattack = pokemon2.attack
 
-            print(f"Pokemon 2 Attack Stage {pokemon2.attackstage}")
-            print(f"Pokemon 2 Current Attack {pokemon2.currentattack}")
         else:
             print(f"{pokemon1.name} errou!")
 
@@ -101,8 +98,8 @@ class Pokemon_battle:
         print("#" * 30)
         print(f"{pokemon2.name} segundo usou {attack_2['name']}")
         if self.accuracy_check(attack_2["accuracy"]):
-            attack_points = pokemon2.attack if attack_2['kind'] == 'Physical' else pokemon2.sattack
-            defense_points = pokemon1.deffence if attack_2['kind'] == 'Physical' else pokemon1.sdeffence
+            attack_points = pokemon2.currentattack if attack_2['kind'] == 'Physical' else pokemon2.currentsattack
+            defense_points = pokemon1.currentdefense if attack_2['kind'] == 'Physical' else pokemon1.currentsdefense
 
             damage_2, is_crit_1, is_matchup_1 = self.damageCalculation(pokemon2.lvl, attack_2, attack_points, defense_points, pokemon2.poke_type, pokemon2.poke_type2, 
             pokemon1.poke_type, pokemon1.poke_type2)
