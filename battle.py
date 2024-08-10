@@ -4,8 +4,10 @@ class Pokemon_battle:
     def __init__(self, types_matchup, types):
         self.types_matchup = types_matchup
         self.types = types
-        self.buff = [1.5, 2.0, 2.5, 3.0, 3.5, 4.0]
-        self.debuff = [0.67, 0.5, 0.4, 0.33, 0.29, 0.25]
+        self.buff = [1.5, 2.0, 2.5, 3.0, 3.5, 4.0] # Stages 1 até 6
+        self.debuff = [0.67, 0.5, 0.4, 0.33, 0.29, 0.25] # Stages -1 até -6
+        self.eva_accbuff = [1.33, 1.67, 2, 2.33, 2.66, 3] # Stages 1 até 6
+        self.eva_accdebuff = [0.75, 0.6, 0.5, 0.43, 0.38, 0.33] # Stages -1 até -6
 
     def __typeAdvantage(self, attack, defense, defense1):
         index_attack = None
@@ -52,17 +54,38 @@ class Pokemon_battle:
 
         return 0 if move_power == 0 else damage, crit==2, matchup>=2
 
-    def accuracy_check(self, accuracy):
+    def accuracy_check(self, accuracy, pokemon1_accurary, pokemon2_evasion):
+        if pokemon1_accurary > 0:
+            p_attacker = self.eva_accbuff[pokemon1_accurary - 1]
+        elif pokemon1_accurary < 0:
+            p_attacker = self.eva_accdebuff[pokemon1_accurary + 1]
+        else:
+            p_attacker = 1
+
+        if pokemon2_evasion > 0:
+            eva_rival = self.eva_accbuff[pokemon2_evasion - 1]
+        elif pokemon2_evasion < 0:
+            eva_rival = self.eva_accdebuff[pokemon2_evasion + 1]
+        else:
+            eva_rival = 1
+
         if accuracy == "-":
             return True
-        elif int(accuracy) >= random.randint(0, 100):
-            return True
-        return False
+
+        else:
+            hit_chance = round((int(accuracy) * p_attacker) / eva_rival)
+            hit_chance = hit_chance if hit_chance <= 100 else 100
+            print('----------TESTE HIT CHANGE', hit_chance)
+            if hit_chance >= random.randint(0, 100):
+                return True
+            else:
+                return False
 
     def battleRound(self, pokemon1, pokemon2, attack_1, attack_2):
         print("#" * 30)
         print(f"{pokemon1.name} primeiro usou {attack_1['name']}")
-        if self.accuracy_check(attack_1["accuracy"]):
+        if self.accuracy_check(attack_1["accuracy"], pokemon1.accuracystage, pokemon2.evasionstage):
+
             # calculo do primeiro ataque
             if attack_1['kind'] in ['Physical', 'Special']:
                 attack_points = pokemon1.currentattack if attack_1['kind'] == 'Physical' else pokemon1.currentsattack
@@ -103,6 +126,12 @@ class Pokemon_battle:
                     pokemon1.currentsattack = pokemon1.sattack
                 # print(f'------Teste sattackstage {pokemon1.sattackstage}')
                 # print(f'------Teste currentsattack {pokemon1.currentsattack}')
+            elif attack_1['name'] in ['Sweet Scent']:
+                print('------------TESTE POKEMON 2 EVASION', pokemon2.evasionstage)
+                pokemon2.evasionstage = pokemon2.evasionstage - 1 if pokemon2.evasionstage > -6 else pokemon2.evasionstage
+                print('------------TESTE POKEMON 2 EVASION 2', pokemon2.evasionstage)
+
+
 
         else:
             print(f"{pokemon1.name} errou!")
@@ -110,7 +139,7 @@ class Pokemon_battle:
         # calculo do segundo ataque
         print("#" * 30)
         print(f"{pokemon2.name} segundo usou {attack_2['name']}")
-        if self.accuracy_check(attack_2["accuracy"]):
+        if self.accuracy_check(attack_2["accuracy"], pokemon2.accuracystage, pokemon1.evasionstage):
             attack_points = pokemon2.currentattack if attack_2['kind'] == 'Physical' else pokemon2.currentsattack
             defense_points = pokemon1.currentdefense if attack_2['kind'] == 'Physical' else pokemon1.currentsdefense
 

@@ -8,7 +8,7 @@ from datetime import datetime
 from pokemon_obj import Pokemon_char
 from battle import Pokemon_battle
 
-__author__ = "janio.almeida"
+__author__ = "rafael.bernardo"
 __date__ = "09/08/2024"
 __version__ = open("version").readline()
 __project__ = "Pokemon"
@@ -217,7 +217,7 @@ try:
 
     # Preparando pokemons
     poke_1_moves, lvlpoke1 = pokeMoveInput(pokemon1[1], pokemovelist, pokemoves, False)
-    poke_2_moves, lvlpoke2 = pokeMoveInput(pokemon2[1], pokemovelist, pokemoves, True)
+    poke_2_moves, lvlpoke2 = pokeMoveInput(pokemon2[1], pokemovelist, pokemoves, False)
 
     log_poke.internal_finish(log_name="pokemon-moves-input", success=True, result=[pokemon1, pokemon2]) # Fechamento do log
 

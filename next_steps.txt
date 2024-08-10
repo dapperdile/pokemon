@@ -1,6 +1,7 @@
 - Definir uma função para combate
     -Calcular o dano
         -adicionar status do pokemon(dormindo, envenenado, paralizado)
+    - BUG: Corrigir o segundo ataque de acordo com o primeiro ataque
     -Construir  movimentos com efeitos especiais, para no maximo 15 primeiros pokemons.(Beedrill)
 - tirar as virgulas das descrições de movimentos em poke_move_new.csv
 - Criar um banco de dados para o projeto Pokemon
