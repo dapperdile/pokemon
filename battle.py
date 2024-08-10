@@ -91,6 +91,19 @@ class Pokemon_battle:
                 else:
                     pokemon2.currentattack = pokemon2.attack
 
+            elif attack_1['name'] in ['Growth']:
+                # print(f'------Teste sattack {pokemon1.sattack}')
+                # print(f'------Teste sattackstage {pokemon1.sattackstage}')
+                pokemon1.sattackstage = pokemon1.sattackstage + 1 if pokemon1.sattackstage < 6 else pokemon1.sattackstage
+                if pokemon1.sattackstage < 0:
+                    pokemon1.currentsattack = round(pokemon1.sattack * self.debuff[(pokemon1.sattackstage * -1) - 1])
+                elif pokemon1.sattackstage > 0:
+                    pokemon1.currentsattack = round(pokemon1.sattack * self.buff[pokemon1.sattackstage - 1])
+                else:
+                    pokemon1.currentsattack = pokemon1.sattack
+                # print(f'------Teste sattackstage {pokemon1.sattackstage}')
+                # print(f'------Teste currentsattack {pokemon1.currentsattack}')
+
         else:
             print(f"{pokemon1.name} errou!")
 

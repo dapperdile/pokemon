@@ -31,6 +31,7 @@ class Pokemon_char:
 		self.currentspeed = self.hp
 		self.speedstage = 0
 		self.accuracystage = 0
+		self.evasionstage = 0
 
 
 	def moveValidation(self, move):

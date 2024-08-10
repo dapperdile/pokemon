@@ -8,8 +8,8 @@ from datetime import datetime
 from pokemon_obj import Pokemon_char
 from battle import Pokemon_battle
 
-__author__ = "rafael.bernardo"
-__date__ = "25/07/2024"
+__author__ = "janio.almeida"
+__date__ = "09/08/2024"
 __version__ = open("version").readline()
 __project__ = "Pokemon"
 
