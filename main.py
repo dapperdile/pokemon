@@ -212,7 +212,7 @@ try:
 
     log_poke.internal(log_name="pokemon-moves-input", timestamp=timestamp) # Início do log
     # Identificação dos Pokemons
-    pokemon1, pokemon2 = pokeInput(pokelist, random_allow_1=False, random_allow_2=True)
+    pokemon1, pokemon2 = pokeInput(pokelist, random_allow_1=False, random_allow_2=False)
     print(pokemon1)
 
     # Preparando pokemons

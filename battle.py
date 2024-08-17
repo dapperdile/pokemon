@@ -75,11 +75,39 @@ class Pokemon_battle:
         else:
             hit_chance = round((int(accuracy) * p_attacker) / eva_rival)
             hit_chance = hit_chance if hit_chance <= 100 else 100
-            print('----------TESTE HIT CHANGE', hit_chance)
             if hit_chance >= random.randint(0, 100):
                 return True
             else:
                 return False
+            
+    def _status_move(self, attack, pokemon1, pokemon2):
+        if attack['name'] in ['Growl']:
+            pokemon2.attackstage = pokemon2.attackstage - 1 if pokemon2.attackstage > -6 else pokemon2.attackstage
+            if pokemon2.attackstage < 0:
+                pokemon2.currentattack = round(pokemon2.attack * self.debuff[(pokemon2.attackstage * -1) - 1])
+            elif pokemon2.attackstage > 0:
+                pokemon2.currentattack = round(pokemon2.attack * self.buff[pokemon2.attackstage - 1])
+            else:
+                pokemon2.currentattack = pokemon2.attack
+
+        elif attack['name'] in ['Growth']:
+            # print(f'------Teste sattack {pokemon1.sattack}')
+            # print(f'------Teste sattackstage {pokemon1.sattackstage}')
+            pokemon1.sattackstage = pokemon1.sattackstage + 1 if pokemon1.sattackstage < 6 else pokemon1.sattackstage
+            if pokemon1.sattackstage < 0:
+                pokemon1.currentsattack = round(pokemon1.sattack * self.debuff[(pokemon1.sattackstage * -1) - 1])
+            elif pokemon1.sattackstage > 0:
+                pokemon1.currentsattack = round(pokemon1.sattack * self.buff[pokemon1.sattackstage - 1])
+            else:
+                pokemon1.currentsattack = pokemon1.sattack
+            # print(f'------Teste sattackstage {pokemon1.sattackstage}')
+            # print(f'------Teste currentsattack {pokemon1.currentsattack}')
+        elif attack['name'] in ['Sweet Scent']:
+            pokemon2.evasionstage = pokemon2.evasionstage - 1 if pokemon2.evasionstage > -6 else pokemon2.evasionstage
+
+        return pokemon1, pokemon2
+
+
 
     def battleRound(self, pokemon1, pokemon2, attack_1, attack_2):
         print("#" * 30)
@@ -105,32 +133,8 @@ class Pokemon_battle:
                 print(f'A vida do {pokemon2.name} é {pokemon2.currenthp}')
                 print("#" * 30)
 
-            elif attack_1['name'] in ['Growl']:
-                pokemon2.attackstage = pokemon2.attackstage - 1 if pokemon2.attackstage > -6 else pokemon2.attackstage
-                if pokemon2.attackstage < 0:
-                    pokemon2.currentattack = round(pokemon2.attack * self.debuff[(pokemon2.attackstage * -1) - 1])
-                elif pokemon2.attackstage > 0:
-                    pokemon2.currentattack = round(pokemon2.attack * self.buff[pokemon2.attackstage - 1])
-                else:
-                    pokemon2.currentattack = pokemon2.attack
-
-            elif attack_1['name'] in ['Growth']:
-                # print(f'------Teste sattack {pokemon1.sattack}')
-                # print(f'------Teste sattackstage {pokemon1.sattackstage}')
-                pokemon1.sattackstage = pokemon1.sattackstage + 1 if pokemon1.sattackstage < 6 else pokemon1.sattackstage
-                if pokemon1.sattackstage < 0:
-                    pokemon1.currentsattack = round(pokemon1.sattack * self.debuff[(pokemon1.sattackstage * -1) - 1])
-                elif pokemon1.sattackstage > 0:
-                    pokemon1.currentsattack = round(pokemon1.sattack * self.buff[pokemon1.sattackstage - 1])
-                else:
-                    pokemon1.currentsattack = pokemon1.sattack
-                # print(f'------Teste sattackstage {pokemon1.sattackstage}')
-                # print(f'------Teste currentsattack {pokemon1.currentsattack}')
-            elif attack_1['name'] in ['Sweet Scent']:
-                print('------------TESTE POKEMON 2 EVASION', pokemon2.evasionstage)
-                pokemon2.evasionstage = pokemon2.evasionstage - 1 if pokemon2.evasionstage > -6 else pokemon2.evasionstage
-                print('------------TESTE POKEMON 2 EVASION 2', pokemon2.evasionstage)
-
+            else: 
+                pokemon1, pokemon2 = self._status_move(attack_1, pokemon1, pokemon2)
 
 
         else:
@@ -140,22 +144,26 @@ class Pokemon_battle:
         print("#" * 30)
         print(f"{pokemon2.name} segundo usou {attack_2['name']}")
         if self.accuracy_check(attack_2["accuracy"], pokemon2.accuracystage, pokemon1.evasionstage):
-            attack_points = pokemon2.currentattack if attack_2['kind'] == 'Physical' else pokemon2.currentsattack
-            defense_points = pokemon1.currentdefense if attack_2['kind'] == 'Physical' else pokemon1.currentsdefense
+            if attack_2['kind'] in ['Physical', 'Special']:   
+                attack_points = pokemon2.currentattack if attack_2['kind'] == 'Physical' else pokemon2.currentsattack
+                defense_points = pokemon1.currentdefense if attack_2['kind'] == 'Physical' else pokemon1.currentsdefense
 
-            damage_2, is_crit_1, is_matchup_1 = self.damageCalculation(pokemon2.lvl, attack_2, attack_points, defense_points, pokemon2.poke_type, pokemon2.poke_type2, 
-            pokemon1.poke_type, pokemon1.poke_type2)
-            if is_crit_1:
-                print('Foi um ataque crítico!')
+                damage_2, is_crit_1, is_matchup_1 = self.damageCalculation(pokemon2.lvl, attack_2, attack_points, defense_points, pokemon2.poke_type, pokemon2.poke_type2, 
+                pokemon1.poke_type, pokemon1.poke_type2)
+                if is_crit_1:
+                    print('Foi um ataque crítico!')
 
-            if is_matchup_1:
-                print('Foi um ataque super efetivo')
+                if is_matchup_1:
+                    print('Foi um ataque super efetivo')
 
-            print(f"Acertou com {damage_2:.0f} de dano!")
-            print("#" * 30)
-            pokemon1.healthdamage(round(damage_2))
-            print(f'A vida do {pokemon1.name} é {pokemon1.currenthp}')
-            print("#" * 30)
+                print(f"Acertou com {damage_2:.0f} de dano!")
+                print("#" * 30)
+                pokemon1.healthdamage(round(damage_2))
+                print(f'A vida do {pokemon1.name} é {pokemon1.currenthp}')
+                print("#" * 30)
+
+            else: 
+                pokemon2, pokemon1 = self._status_move(attack_2, pokemon2, pokemon1)
 
         else:
             print(f"{pokemon2.name} errou!")
