@@ -79,33 +79,43 @@ class Pokemon_battle:
                 return True
             else:
                 return False
-            
-    def _status_move(self, attack, pokemon1, pokemon2):
-        if attack['name'] in ['Growl']:
-            pokemon2.attackstage = pokemon2.attackstage - 1 if pokemon2.attackstage > -6 else pokemon2.attackstage
-            if pokemon2.attackstage < 0:
-                pokemon2.currentattack = round(pokemon2.attack * self.debuff[(pokemon2.attackstage * -1) - 1])
-            elif pokemon2.attackstage > 0:
-                pokemon2.currentattack = round(pokemon2.attack * self.buff[pokemon2.attackstage - 1])
-            else:
-                pokemon2.currentattack = pokemon2.attack
 
-        elif attack['name'] in ['Growth']:
-            # print(f'------Teste sattack {pokemon1.sattack}')
-            # print(f'------Teste sattackstage {pokemon1.sattackstage}')
-            pokemon1.sattackstage = pokemon1.sattackstage + 1 if pokemon1.sattackstage < 6 else pokemon1.sattackstage
-            if pokemon1.sattackstage < 0:
-                pokemon1.currentsattack = round(pokemon1.sattack * self.debuff[(pokemon1.sattackstage * -1) - 1])
-            elif pokemon1.sattackstage > 0:
-                pokemon1.currentsattack = round(pokemon1.sattack * self.buff[pokemon1.sattackstage - 1])
-            else:
-                pokemon1.currentsattack = pokemon1.sattack
-            # print(f'------Teste sattackstage {pokemon1.sattackstage}')
-            # print(f'------Teste currentsattack {pokemon1.currentsattack}')
-        elif attack['name'] in ['Sweet Scent']:
-            pokemon2.evasionstage = pokemon2.evasionstage - 1 if pokemon2.evasionstage > -6 else pokemon2.evasionstage
+    def _status_move(self, attack, pokemon1, pokemon2, damage, priority):
+
+        if priority:
+            if attack['name'] in ['Growl']:
+                pokemon2.attackstage = pokemon2.attackstage - 1 if pokemon2.attackstage > -6 else pokemon2.attackstage
+                if pokemon2.attackstage < 0:
+                    pokemon2.currentattack = round(pokemon2.attack * self.debuff[(pokemon2.attackstage * -1) - 1])
+                elif pokemon2.attackstage > 0:
+                    pokemon2.currentattack = round(pokemon2.attack * self.buff[pokemon2.attackstage - 1])
+                else:
+                    pokemon2.currentattack = pokemon2.attack
+
+            elif attack['name'] in ['Growth']:
+                # print(f'------Teste sattack {pokemon1.sattack}')
+                # print(f'------Teste sattackstage {pokemon1.sattackstage}')
+                pokemon1.sattackstage = pokemon1.sattackstage + 1 if pokemon1.sattackstage < 6 else pokemon1.sattackstage
+                if pokemon1.sattackstage < 0:
+                    pokemon1.currentsattack = round(pokemon1.sattack * self.debuff[(pokemon1.sattackstage * -1) - 1])
+                elif pokemon1.sattackstage > 0:
+                    pokemon1.currentsattack = round(pokemon1.sattack * self.buff[pokemon1.sattackstage - 1])
+                else:
+                    pokemon1.currentsattack = pokemon1.sattack
+                # print(f'------Teste sattackstage {pokemon1.sattackstage}')
+                # print(f'------Teste currentsattack {pokemon1.currentsattack}')
+            elif attack['name'] in ['Sweet Scent']:
+                pokemon2.evasionstage = pokemon2.evasionstage - 1 if pokemon2.evasionstage > -6 else pokemon2.evasionstage
+
+        else:
+            if attack['name'] in ['Take Down']:
+                rebound_damage = round(damage / 4)
+                pokemon1.currenthp -= rebound_damage 
+                print (f'{pokemon1.name} sofreu {rebound_damage} de recuo.')
+
 
         return pokemon1, pokemon2
+
 
 
 
@@ -113,8 +123,10 @@ class Pokemon_battle:
         print("#" * 30)
         print(f"{pokemon1.name} primeiro usou {attack_1['name']}")
         if self.accuracy_check(attack_1["accuracy"], pokemon1.accuracystage, pokemon2.evasionstage):
-
             # calculo do primeiro ataque
+            pokemon1, pokemon2 = self._status_move(attack_1, pokemon1, pokemon2, 0, True)
+
+            damage_1 = 0
             if attack_1['kind'] in ['Physical', 'Special']:
                 attack_points = pokemon1.currentattack if attack_1['kind'] == 'Physical' else pokemon1.currentsattack
                 defense_points = pokemon2.currentdefense if attack_1['kind'] == 'Physical' else pokemon2.currentsdefense
@@ -133,9 +145,7 @@ class Pokemon_battle:
                 print(f'A vida do {pokemon2.name} é {pokemon2.currenthp}')
                 print("#" * 30)
 
-            else: 
-                pokemon1, pokemon2 = self._status_move(attack_1, pokemon1, pokemon2)
-
+            pokemon1, pokemon2 = self._status_move(attack_1, pokemon1, pokemon2, damage_1, False)
 
         else:
             print(f"{pokemon1.name} errou!")
@@ -144,7 +154,10 @@ class Pokemon_battle:
         print("#" * 30)
         print(f"{pokemon2.name} segundo usou {attack_2['name']}")
         if self.accuracy_check(attack_2["accuracy"], pokemon2.accuracystage, pokemon1.evasionstage):
-            if attack_2['kind'] in ['Physical', 'Special']:   
+            pokemon2, pokemon1 = self._status_move(attack_2, pokemon2, pokemon1, 0, True)
+            
+            damage_2 = 0
+            if attack_2['kind'] in ['Physical', 'Special']:
                 attack_points = pokemon2.currentattack if attack_2['kind'] == 'Physical' else pokemon2.currentsattack
                 defense_points = pokemon1.currentdefense if attack_2['kind'] == 'Physical' else pokemon1.currentsdefense
 
@@ -161,9 +174,7 @@ class Pokemon_battle:
                 pokemon1.healthdamage(round(damage_2))
                 print(f'A vida do {pokemon1.name} é {pokemon1.currenthp}')
                 print("#" * 30)
-
-            else: 
-                pokemon2, pokemon1 = self._status_move(attack_2, pokemon2, pokemon1)
+            pokemon2, pokemon1 = self._status_move(attack_2, pokemon2, pokemon1, damage_2, False)
 
         else:
             print(f"{pokemon2.name} errou!")

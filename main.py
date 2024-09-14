@@ -8,14 +8,18 @@ from datetime import datetime
 from pokemon_obj import Pokemon_char
 from battle import Pokemon_battle
 
-__author__ = "rafael.bernardo"
-__date__ = "09/08/2024"
+__author__ = "janio.almeida"
+__date__ = "13/09/2024"
 __version__ = open("version").readline()
 __project__ = "Pokemon"
 
 
 timestamp = datetime.now().strftime("%Y-%m-%dT%H_%M_%S")
 types = ["Normal", "Fighting", "Flying", "Poison", "Ground", "Rock", "Bug", "Ghost", "Steel", "Fire", "Water", "Grass", "Electric", "Psychic", "Ice", "Dragon", "Dark", "Fairy"]
+poke1random = False
+poke2random = True
+move1random = False
+move2random = True
 
 def pokenameValidation(input_name, pokelist):
     pokechoice = []
@@ -212,12 +216,12 @@ try:
 
     log_poke.internal(log_name="pokemon-moves-input", timestamp=timestamp) # Início do log
     # Identificação dos Pokemons
-    pokemon1, pokemon2 = pokeInput(pokelist, random_allow_1=False, random_allow_2=False)
+    pokemon1, pokemon2 = pokeInput(pokelist, random_allow_1=poke1random, random_allow_2=poke2random)
     print(pokemon1)
 
     # Preparando pokemons
-    poke_1_moves, lvlpoke1 = pokeMoveInput(pokemon1[1], pokemovelist, pokemoves, False)
-    poke_2_moves, lvlpoke2 = pokeMoveInput(pokemon2[1], pokemovelist, pokemoves, False)
+    poke_1_moves, lvlpoke1 = pokeMoveInput(pokemon1[1], pokemovelist, pokemoves, move1random)
+    poke_2_moves, lvlpoke2 = pokeMoveInput(pokemon2[1], pokemovelist, pokemoves, move2random)
 
     log_poke.internal_finish(log_name="pokemon-moves-input", success=True, result=[pokemon1, pokemon2]) # Fechamento do log
 
