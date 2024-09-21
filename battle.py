@@ -107,6 +107,27 @@ class Pokemon_battle:
             elif attack['name'] in ['Sweet Scent']:
                 pokemon2.evasionstage = pokemon2.evasionstage - 1 if pokemon2.evasionstage > -6 else pokemon2.evasionstage
 
+            elif attack['name'] in ['Smokescreen']:
+                pokemon2.accuracystage = pokemon2.accuracystage - 1 if pokemon2.accuracystage > -6 else pokemon2.accuracystage
+                print("---------- TESTE 1 : ", pokemon2.accuracystage)
+
+            elif attack['name'] in ['Scary Face']:
+                pokemon2.speedstage = pokemon2.speedstage - 1 if pokemon2.speedstage > -6 else pokemon2.speedstage
+                if pokemon2.speedstage < 0:
+                    pokemon2.currentspeed = round(pokemon2.speed * self.debuff[(pokemon2.speedstage * -1) - 1])
+                elif pokemon2.speedstage > 0:
+                    pokemon2.currentspeed = round(pokemon2.speed * self.buff[pokemon2.speedstage - 1])
+                else:
+                    pokemon2.currentspeed = pokemon2.speed
+                print("---------- TESTE 2 : ", pokemon2.speedstage)
+                print("---------- TESTE 3 : ", pokemon2.currentspeed)
+
+            elif attack['name'] in ['Poison Powder']:
+                if not pokemon2.statuscondition:
+                    pokemon2.statuscondition = "Poisoned"
+                else:
+                    print("O ataque não teve efeito")
+
         else:
             if attack['name'] in ['Take Down']:
                 rebound_damage = round(damage / 4)
@@ -179,3 +200,13 @@ class Pokemon_battle:
         else:
             print(f"{pokemon2.name} errou!")
             print("#" * 30)
+
+        if pokemon1.statuscondition == "Poisoned":
+            poison_damage = round(pokemon1.hp / 8)
+            pokemon1.healthdamage(poison_damage)
+            print(f"{pokemon1.name} sofreu {poison_damage} de dano por envenenamento")
+
+        if pokemon2.statuscondition == "Poisoned":
+            poison_damage = round(pokemon2.hp / 8)
+            pokemon2.healthdamage(poison_damage)
+            print(f"{pokemon2.name} sofreu {poison_damage} de dano por envenenamento")

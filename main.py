@@ -8,8 +8,8 @@ from datetime import datetime
 from pokemon_obj import Pokemon_char
 from battle import Pokemon_battle
 
-__author__ = "janio.almeida"
-__date__ = "13/09/2024"
+__author__ = "rafael.bernardo"
+__date__ = "20/09/2024"
 __version__ = open("version").readline()
 __project__ = "Pokemon"
 
@@ -261,7 +261,7 @@ try:
             
             # execução do ataque em ordem de velocidade do pokemon
             attackpriority = movePriority(prioritymoves, attack_1['name'], attack_2['name'],
-                                        pokemon1.speed, pokemon2.speed)
+                                        pokemon1.currentspeed, pokemon2.currentspeed)
             if attackpriority == 1:
                 battle.battleRound(pokemon1, pokemon2, attack_1, attack_2)
             else:
