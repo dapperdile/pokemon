@@ -33,6 +33,7 @@ class Pokemon_char:
 		self.accuracystage = 0
 		self.evasionstage = 0
 		self.statuscondition = ''
+		self.sleepcount = 0
 
 
 	def moveValidation(self, move):

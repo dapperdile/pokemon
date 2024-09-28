@@ -126,6 +126,13 @@ class Pokemon_battle:
                 else:
                     print("O ataque não teve efeito")
 
+            elif attack['name'] in ['Sleep Powder']:
+                if not pokemon2.statuscondition:
+                    pokemon2.statuscondition = "Sleeping"
+                    pokemon2.sleepcount = random.randint(1, 4)
+                else:
+                    print("O ataque não teve efeito")
+
         else:
             if attack['name'] in ['Take Down']:
                 rebound_damage = round(damage / 4)
@@ -139,10 +146,17 @@ class Pokemon_battle:
 
 
     def battleRound(self, pokemon1, pokemon2, attack_1, attack_2):
-        print("#" * 30)
-        print(f"{pokemon1.name} primeiro usou {attack_1['name']}")
-        if self.accuracy_check(attack_1["accuracy"], pokemon1.accuracystage, pokemon2.evasionstage):
+        round_count = 0
+
+        if pokemon1.statuscondition == "Sleeping":
+            print(f"O {pokemon1.name} está dormindo.")
+
+        elif self.accuracy_check(attack_1["accuracy"], pokemon1.accuracystage, pokemon2.evasionstage):
+            print("#" * 30)
+            print(f"{pokemon1.name} primeiro usou {attack_1['name']}")
+
             # calculo do primeiro ataque
+
             pokemon1, pokemon2 = self._status_move(attack_1, pokemon1, pokemon2, 0, True)
 
             damage_1 = 0
@@ -168,14 +182,21 @@ class Pokemon_battle:
             pokemon1, pokemon2 = self._status_move(attack_1, pokemon1, pokemon2, damage_1, False)
 
         else:
+            print("#" * 30)
+            print(f"{pokemon1.name} primeiro usou {attack_1['name']}")
             print(f"{pokemon1.name} errou!")
 
         # calculo do segundo ataque
-        print("#" * 30)
-        print(f"{pokemon2.name} segundo usou {attack_2['name']}")
-        if self.accuracy_check(attack_2["accuracy"], pokemon2.accuracystage, pokemon1.evasionstage):
+
+        if pokemon2.statuscondition == "Sleeping":
+            print(f"O {pokemon2.name} está dormindo.")
+
+        elif self.accuracy_check(attack_2["accuracy"], pokemon2.accuracystage, pokemon1.evasionstage):
+            print("#" * 30)
+            print(f"{pokemon2.name} segundo usou {attack_2['name']}")
+
             pokemon2, pokemon1 = self._status_move(attack_2, pokemon2, pokemon1, 0, True)
-            
+
             damage_2 = 0
             if attack_2['kind'] in ['Physical', 'Special']:
                 attack_points = pokemon2.currentattack if attack_2['kind'] == 'Physical' else pokemon2.currentsattack
@@ -197,8 +218,12 @@ class Pokemon_battle:
             pokemon2, pokemon1 = self._status_move(attack_2, pokemon2, pokemon1, damage_2, False)
 
         else:
+            print("#" * 30)
+            print(f"{pokemon2.name} segundo usou {attack_2['name']}")
             print(f"{pokemon2.name} errou!")
             print("#" * 30)
+
+        round_count += 1
 
         if pokemon1.statuscondition == "Poisoned":
             poison_damage = round(pokemon1.hp / 8)
@@ -209,3 +234,17 @@ class Pokemon_battle:
             poison_damage = round(pokemon2.hp / 8)
             pokemon2.healthdamage(poison_damage)
             print(f"{pokemon2.name} sofreu {poison_damage} de dano por envenenamento")
+
+        if pokemon1.statuscondition == "Sleeping":
+            if pokemon1.sleepcount > 0:
+                pokemon1.sleepcount -= 1
+            else:
+                pokemon1.statuscondition = ''
+                print(f"{pokemon1.name} acordou!")
+
+        if pokemon2.statuscondition == "Sleeping":
+            if pokemon2.sleepcount > 0:
+                pokemon2.sleepcount -= 1
+            else:
+                pokemon2.statuscondition = ''
+                print(f"{pokemon2.name} acordou!")

@@ -8,7 +8,7 @@ from datetime import datetime
 from pokemon_obj import Pokemon_char
 from battle import Pokemon_battle
 
-__author__ = "janio.almeida"
+__author__ = "rafael.bernardo"
 __date__ = "27/09/2024"
 __version__ = open("version").readline()
 __project__ = "Pokemon"
@@ -19,7 +19,7 @@ types = ["Normal", "Fighting", "Flying", "Poison", "Ground", "Rock", "Bug", "Gho
 poke1random = False
 poke2random = True
 move1random = False
-move2random = False
+move2random = True
 
 def pokenameValidation(input_name, pokelist):
     pokechoice = []
