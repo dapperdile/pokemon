@@ -42,7 +42,8 @@ class Pokemon_battle:
 
     def damageCalculation(self, lvl, move_info, attack, defense, poke_1_type_1, poke_1_type_2, 
                           poke_2_type_1, poke_2_type_2):
-        crit = 2 if random.randint(0, 100)  <= 5  else  1
+        crit_limit = 12 if move_info['name'] == 'Razor Leaf' else 5
+        crit = 2 if random.randint(0, 100) <= crit_limit else 1
         rand = random.randint(217, 255) / 255
         stab = 1.5 if move_info["type"] == poke_1_type_1 or poke_1_type_2 else 1
         matchup = self.__typeAdvantage(move_info['type'], poke_2_type_1, poke_2_type_2)
@@ -109,7 +110,6 @@ class Pokemon_battle:
 
             elif attack['name'] in ['Smokescreen']:
                 pokemon2.accuracystage = pokemon2.accuracystage - 1 if pokemon2.accuracystage > -6 else pokemon2.accuracystage
-                print("---------- TESTE 1 : ", pokemon2.accuracystage)
 
             elif attack['name'] in ['Scary Face']:
                 pokemon2.speedstage = pokemon2.speedstage - 1 if pokemon2.speedstage > -6 else pokemon2.speedstage
@@ -119,8 +119,6 @@ class Pokemon_battle:
                     pokemon2.currentspeed = round(pokemon2.speed * self.buff[pokemon2.speedstage - 1])
                 else:
                     pokemon2.currentspeed = pokemon2.speed
-                print("---------- TESTE 2 : ", pokemon2.speedstage)
-                print("---------- TESTE 3 : ", pokemon2.currentspeed)
 
             elif attack['name'] in ['Poison Powder']:
                 if not pokemon2.statuscondition:
@@ -154,6 +152,7 @@ class Pokemon_battle:
 
                 damage_1, is_crit_2, is_matchup_2 = self.damageCalculation(pokemon1.lvl, attack_1, attack_points, defense_points, pokemon1.poke_type, pokemon1.poke_type2, 
                 pokemon2.poke_type, pokemon2.poke_type2)
+
                 if is_crit_2:
                     print('Foi um ataque crítico!')
 

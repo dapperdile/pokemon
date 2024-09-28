@@ -2,7 +2,6 @@
     -Calcular o dano
         -adicionar status do pokemon(dormindo, paralizado, queimado, congelado)
     -Construir  movimentos com efeitos especiais, para no maximo 15 primeiros pokemons.(Ninetales)
-    - fazer o Razor Leaf 
 - tirar as virgulas das descrições de movimentos em poke_move_new.csv
 - Criar um banco de dados para o projeto Pokemon
 - Integrar o banco de dados
