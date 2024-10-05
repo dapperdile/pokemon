@@ -267,3 +267,18 @@ class Pokemon_battle:
                 print(f"{pokemon2.name} acordou!")
 
 
+        poke1_porcentagem = pokemon1.currenthp / pokemon1.hp if pokemon1.currenthp > 0 else 0
+        hash_amount = round(poke1_porcentagem * 10)
+        dash_amount = 10 - hash_amount
+
+        print('|', '#'*hash_amount, '-'*dash_amount, '| ', 'Hp do ', pokemon1.name,  sep='' )
+
+
+        poke2_porcentagem = pokemon2.currenthp / pokemon2.hp if pokemon2.currenthp > 0 else 0
+        hash_amount = round(poke2_porcentagem * 10)
+        dash_amount = 10 - hash_amount
+
+        print('|', '#'*hash_amount, '-'*dash_amount, '| ', 'Hp do ', pokemon2.name,  sep='' )
+       
+
+

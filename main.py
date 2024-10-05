@@ -16,10 +16,10 @@ __project__ = "Pokemon"
 
 timestamp = datetime.now().strftime("%Y-%m-%dT%H_%M_%S")
 types = ["Normal", "Fighting", "Flying", "Poison", "Ground", "Rock", "Bug", "Ghost", "Steel", "Fire", "Water", "Grass", "Electric", "Psychic", "Ice", "Dragon", "Dark", "Fairy"]
-poke1random = False
-poke2random = False
-move1random = False
-move2random = False
+poke1random = True
+poke2random = True
+move1random = True
+move2random = True
 
 def pokenameValidation(input_name, pokelist):
     pokechoice = []
