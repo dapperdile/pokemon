@@ -139,6 +139,11 @@ class Pokemon_battle:
                 pokemon1.currenthp -= rebound_damage 
                 print (f'{pokemon1.name} sofreu {rebound_damage} de recuo.')
 
+            elif attack['name'] in ['Ember', 'Fire Blast', 'Fire Fang', 'Fire Punch', 'Flame Wheel', 'Flamethrower', 'Flare Blitz', 'Heat Wave']:
+                if random.randint(0, 100) <= 10 and not pokemon2.statuscondition:
+                    pokemon2.statuscondition = "Burned"
+                    print(f"O {pokemon2.name} foi queimado!")
+
 
         return pokemon1, pokemon2
 
@@ -225,26 +230,40 @@ class Pokemon_battle:
 
         round_count += 1
 
+        # Verificação Status Pokemon 1
         if pokemon1.statuscondition == "Poisoned":
             poison_damage = round(pokemon1.hp / 8)
             pokemon1.healthdamage(poison_damage)
             print(f"{pokemon1.name} sofreu {poison_damage} de dano por envenenamento")
 
-        if pokemon2.statuscondition == "Poisoned":
-            poison_damage = round(pokemon2.hp / 8)
-            pokemon2.healthdamage(poison_damage)
-            print(f"{pokemon2.name} sofreu {poison_damage} de dano por envenenamento")
+        elif pokemon1.statuscondition == "Burned":
+            burn_damage = round(pokemon1.hp / 16)
+            pokemon1.healthdamage(burn_damage)
+            print(f"{pokemon1.name} sofreu {burn_damage} de dano por queimadura")
 
-        if pokemon1.statuscondition == "Sleeping":
+        elif pokemon1.statuscondition == "Sleeping":
             if pokemon1.sleepcount > 0:
                 pokemon1.sleepcount -= 1
             else:
                 pokemon1.statuscondition = ''
                 print(f"{pokemon1.name} acordou!")
 
-        if pokemon2.statuscondition == "Sleeping":
+        # Verificação Status Pokemon 2
+        if pokemon2.statuscondition == "Poisoned":
+            poison_damage = round(pokemon2.hp / 8)
+            pokemon2.healthdamage(poison_damage)
+            print(f"{pokemon2.name} sofreu {poison_damage} de dano por envenenamento")
+
+        elif pokemon2.statuscondition == "Burned":
+            burn_damage = round(pokemon2.hp / 16)
+            pokemon2.healthdamage(burn_damage)
+            print(f"{pokemon2.name} sofreu {burn_damage} de dano por queimadura")
+
+        elif pokemon2.statuscondition == "Sleeping":
             if pokemon2.sleepcount > 0:
                 pokemon2.sleepcount -= 1
             else:
                 pokemon2.statuscondition = ''
                 print(f"{pokemon2.name} acordou!")
+
+
