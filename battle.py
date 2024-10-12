@@ -126,6 +126,13 @@ class Pokemon_battle:
                 else:
                     print("O ataque não teve efeito")
 
+            elif attack['name'] in ['Stun Spore']:
+                if not pokemon2.statuscondition:
+                    pokemon2.statuscondition = "Paralyzed"
+                    pokemon2.currentspeed = pokemon2.speed / 2
+                else:
+                    print("O ataque não teve efeito")
+
             elif attack['name'] in ['Sleep Powder']:
                 if not pokemon2.statuscondition:
                     pokemon2.statuscondition = "Sleeping"
@@ -155,6 +162,9 @@ class Pokemon_battle:
 
         if pokemon1.statuscondition == "Sleeping":
             print(f"O {pokemon1.name} está dormindo.")
+
+        elif pokemon1.statuscondition == "Paralyzed" and random.randint(0, 100) < 25:
+            print(f"O {pokemon1.name} está paralizado.")
 
         elif self.accuracy_check(attack_1["accuracy"], pokemon1.accuracystage, pokemon2.evasionstage):
             print("#" * 30)
@@ -195,6 +205,9 @@ class Pokemon_battle:
 
         if pokemon2.statuscondition == "Sleeping":
             print(f"O {pokemon2.name} está dormindo.")
+
+        elif pokemon2.statuscondition == "Paralyzed" and random.randint(0, 100) < 25:
+            print(f"O {pokemon2.name} está paralizado.")
 
         elif self.accuracy_check(attack_2["accuracy"], pokemon2.accuracystage, pokemon1.evasionstage):
             print("#" * 30)
