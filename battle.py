@@ -151,6 +151,11 @@ class Pokemon_battle:
                     pokemon2.statuscondition = "Burned"
                     print(f"O {pokemon2.name} foi queimado!")
 
+            elif attack['name'] in ['Blizzard', 'Freeze-Dry', 'Ice Beam', 'Ice Fang', 'Ice Punch', 'Powder Snow']:
+                if random.randint(0, 100) <= 10 and not pokemon2.statuscondition:
+                    pokemon2.statuscondition = "Frozen"
+                    print(f"O {pokemon2.name} foi congelado!")
+
 
         return pokemon1, pokemon2
 
@@ -165,6 +170,13 @@ class Pokemon_battle:
 
         elif pokemon1.statuscondition == "Paralyzed" and random.randint(0, 100) < 25:
             print(f"O {pokemon1.name} está paralizado.")
+
+        elif pokemon1.statuscondition == "Frozen" and random.randint(0,100) > 20:
+            print(f"O {pokemon1.name} está congelado.")
+
+        elif pokemon1.statuscondition == "Frozen":
+            print(f"O {pokemon1.name} descongelou.")
+            pokemon1.statuscondition = ""
 
         elif self.accuracy_check(attack_1["accuracy"], pokemon1.accuracystage, pokemon2.evasionstage):
             print("#" * 30)
@@ -194,6 +206,10 @@ class Pokemon_battle:
                 print(f'A vida do {pokemon2.name} é {pokemon2.currenthp}')
                 print("#" * 30)
 
+                if pokemon2.statuscondition == "Frozen" and attack_1['type'] == 'Fire':
+                    print(f"O {pokemon2.name} foi descongelado.")
+                    pokemon2.statuscondition = ''
+
             pokemon1, pokemon2 = self._status_move(attack_1, pokemon1, pokemon2, damage_1, False)
 
         else:
@@ -208,6 +224,13 @@ class Pokemon_battle:
 
         elif pokemon2.statuscondition == "Paralyzed" and random.randint(0, 100) < 25:
             print(f"O {pokemon2.name} está paralizado.")
+
+        elif pokemon2.statuscondition == "Frozen" and random.randint(0,100) > 20:
+            print(f"O {pokemon2.name} está congelado.")
+
+        elif pokemon2.statuscondition == "Frozen":
+            print(f"O {pokemon2.name} descongelou.")
+            pokemon2.statuscondition = ""
 
         elif self.accuracy_check(attack_2["accuracy"], pokemon2.accuracystage, pokemon1.evasionstage):
             print("#" * 30)
@@ -233,6 +256,12 @@ class Pokemon_battle:
                 pokemon1.healthdamage(round(damage_2))
                 print(f'A vida do {pokemon1.name} é {pokemon1.currenthp}')
                 print("#" * 30)
+
+                if pokemon1.statuscondition == "Frozen" and attack_2['type'] == 'Fire':
+                    print(f"O {pokemon1.name} foi descongelado.")
+                    pokemon1.statuscondition = ''
+
+
             pokemon2, pokemon1 = self._status_move(attack_2, pokemon2, pokemon1, damage_2, False)
 
         else:
@@ -292,6 +321,6 @@ class Pokemon_battle:
         dash_amount = 10 - hash_amount
 
         print('|', '#'*hash_amount, '-'*dash_amount, '| ', 'Hp do ', pokemon2.name,  sep='' )
-       
+
 
 

@@ -8,7 +8,7 @@ from datetime import datetime
 from pokemon_obj import Pokemon_char
 from battle import Pokemon_battle
 
-__author__ = "rafael.bernardo"
+__author__ = "janio.almeida"
 __date__ = "11/10/2024"
 __version__ = open("version").readline()
 __project__ = "Pokemon"
@@ -258,7 +258,7 @@ try:
 
             # escolha aleatoria do movimento do segundo pokemon
             attack_2 = random.choices(pokemon2.moves)[0]
-            
+
             # execução do ataque em ordem de velocidade do pokemon
             attackpriority = movePriority(prioritymoves, attack_1['name'], attack_2['name'],
                                         pokemon1.currentspeed, pokemon2.currentspeed)
