@@ -9,7 +9,7 @@ from pokemon_obj import Pokemon_char
 from battle import Pokemon_battle
 
 __author__ = "janio.almeida"
-__date__ = "11/10/2024"
+__date__ = "25/10/2024"
 __version__ = open("version").readline()
 __project__ = "Pokemon"
 

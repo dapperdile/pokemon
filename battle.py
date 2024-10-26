@@ -94,8 +94,6 @@ class Pokemon_battle:
                     pokemon2.currentattack = pokemon2.attack
 
             elif attack['name'] in ['Growth']:
-                # print(f'------Teste sattack {pokemon1.sattack}')
-                # print(f'------Teste sattackstage {pokemon1.sattackstage}')
                 pokemon1.sattackstage = pokemon1.sattackstage + 1 if pokemon1.sattackstage < 6 else pokemon1.sattackstage
                 if pokemon1.sattackstage < 0:
                     pokemon1.currentsattack = round(pokemon1.sattack * self.debuff[(pokemon1.sattackstage * -1) - 1])
@@ -103,8 +101,7 @@ class Pokemon_battle:
                     pokemon1.currentsattack = round(pokemon1.sattack * self.buff[pokemon1.sattackstage - 1])
                 else:
                     pokemon1.currentsattack = pokemon1.sattack
-                # print(f'------Teste sattackstage {pokemon1.sattackstage}')
-                # print(f'------Teste currentsattack {pokemon1.currentsattack}')
+
             elif attack['name'] in ['Sweet Scent']:
                 pokemon2.evasionstage = pokemon2.evasionstage - 1 if pokemon2.evasionstage > -6 else pokemon2.evasionstage
 
@@ -156,10 +153,14 @@ class Pokemon_battle:
                     pokemon2.statuscondition = "Frozen"
                     print(f"O {pokemon2.name} foi congelado!")
 
+            elif attack['name'] in ['Leech Seed']:
+                if "Seed" not in pokemon2.specialcondition:
+                    pokemon2.specialcondition.append("Seed")
+                    print(f"O {pokemon2.name} recebeu uma semente!")
+                else:
+                    print(f"O {pokemon2.name} já tem uma semente!")
 
         return pokemon1, pokemon2
-
-
 
 
     def battleRound(self, pokemon1, pokemon2, attack_1, attack_2):
@@ -290,6 +291,14 @@ class Pokemon_battle:
                 pokemon1.statuscondition = ''
                 print(f"{pokemon1.name} acordou!")
 
+        if "Seed" in pokemon1.specialcondition:
+            leech_damage = round(pokemon1.hp / 8)
+            pokemon1.healthdamage(leech_damage)
+            pokemon2.healthrecover(leech_damage)
+            print(f"O {pokemon1.name} sofreu {leech_damage} de dano pela semente!")
+            print(f"O {pokemon2.name} recuperou {leech_damage} de vida pela semente!")
+
+
         # Verificação Status Pokemon 2
         if pokemon2.statuscondition == "Poisoned":
             poison_damage = round(pokemon2.hp / 8)
@@ -308,6 +317,13 @@ class Pokemon_battle:
                 pokemon2.statuscondition = ''
                 print(f"{pokemon2.name} acordou!")
 
+        if "Seed" in pokemon2.specialcondition:
+            leech_damage = round(pokemon2.hp / 8)
+            pokemon2.healthdamage(leech_damage)
+            pokemon1.healthrecover(leech_damage)
+            print(f"O {pokemon2.name} sofreu {leech_damage} de dano pela semente!")
+            print(f"O {pokemon1.name} recuperou {leech_damage} de vida pela semente!")
+
 
         poke1_porcentagem = pokemon1.currenthp / pokemon1.hp if pokemon1.currenthp > 0 else 0
         hash_amount = round(poke1_porcentagem * 10)
@@ -321,6 +337,3 @@ class Pokemon_battle:
         dash_amount = 10 - hash_amount
 
         print('|', '#'*hash_amount, '-'*dash_amount, '| ', 'Hp do ', pokemon2.name,  sep='' )
-
-
-

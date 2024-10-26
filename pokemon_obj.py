@@ -34,7 +34,7 @@ class Pokemon_char:
 		self.evasionstage = 0
 		self.statuscondition = ''
 		self.sleepcount = 0
-
+		self.specialcondition = []
 
 	def moveValidation(self, move):
 		for mv in self.moves:
@@ -44,3 +44,12 @@ class Pokemon_char:
 
 	def healthdamage(self, damage):
 		self.currenthp -= damage
+
+	def healthrecover(self, points):
+		self.currenthp += points
+		if self.currenthp > self.hp:
+			self.currenthp = self.hp
+
+
+	def dotCheck(self):
+		pass
