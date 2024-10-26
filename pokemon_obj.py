@@ -35,6 +35,7 @@ class Pokemon_char:
 		self.statuscondition = ''
 		self.sleepcount = 0
 		self.specialcondition = []
+		self.chargedmoves = 0
 
 	def moveValidation(self, move):
 		for mv in self.moves:

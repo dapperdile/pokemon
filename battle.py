@@ -164,7 +164,6 @@ class Pokemon_battle:
 
 
     def battleRound(self, pokemon1, pokemon2, attack_1, attack_2):
-        round_count = 0
 
         if pokemon1.statuscondition == "Sleeping":
             print(f"O {pokemon1.name} está dormindo.")
@@ -178,6 +177,14 @@ class Pokemon_battle:
         elif pokemon1.statuscondition == "Frozen":
             print(f"O {pokemon1.name} descongelou.")
             pokemon1.statuscondition = ""
+        
+        elif 'Solar' not in pokemon1.specialcondition and attack_1['name'] == 'Solar Beam':
+            pokemon1.specialcondition.append('Solar')
+            print(f"O {pokemon1.name} está carregando o ataque")
+            pokemon1.chargedmoves = 2
+
+        elif attack_1['name'] == 'Solar Beam' and pokemon1.chargedmoves > 0:
+            print(f"O {pokemon1.name} está carregando o ataque")
 
         elif self.accuracy_check(attack_1["accuracy"], pokemon1.accuracystage, pokemon2.evasionstage):
             print("#" * 30)
@@ -233,6 +240,14 @@ class Pokemon_battle:
             print(f"O {pokemon2.name} descongelou.")
             pokemon2.statuscondition = ""
 
+        elif 'Solar' not in pokemon2.specialcondition and attack_2['name'] == 'Solar Beam':
+            pokemon2.specialcondition.append('Solar')
+            print(f"O {pokemon2.name} está carregando o ataque")
+            pokemon2.chargedmoves = 2
+
+        elif attack_2['name'] == 'Solar Beam' and pokemon2.chargedmoves > 0:
+            print(f"O {pokemon2.name} está carregando o ataque")
+
         elif self.accuracy_check(attack_2["accuracy"], pokemon2.accuracystage, pokemon1.evasionstage):
             print("#" * 30)
             print(f"{pokemon2.name} segundo usou {attack_2['name']}")
@@ -271,7 +286,6 @@ class Pokemon_battle:
             print(f"{pokemon2.name} errou!")
             print("#" * 30)
 
-        round_count += 1
 
         # Verificação Status Pokemon 1
         if pokemon1.statuscondition == "Poisoned":
@@ -298,6 +312,13 @@ class Pokemon_battle:
             print(f"O {pokemon1.name} sofreu {leech_damage} de dano pela semente!")
             print(f"O {pokemon2.name} recuperou {leech_damage} de vida pela semente!")
 
+        
+        elif 'Solar' in pokemon1.specialcondition and pokemon1.chargedmoves > 0:
+            pokemon1.chargedmoves -= 1
+        
+        elif 'Solar' in pokemon1.specialcondition and pokemon1.chargedmoves == 0:
+            pokemon1.specialcondition.remove('Solar')
+
 
         # Verificação Status Pokemon 2
         if pokemon2.statuscondition == "Poisoned":
@@ -323,6 +344,12 @@ class Pokemon_battle:
             pokemon1.healthrecover(leech_damage)
             print(f"O {pokemon2.name} sofreu {leech_damage} de dano pela semente!")
             print(f"O {pokemon1.name} recuperou {leech_damage} de vida pela semente!")
+
+        elif 'Solar' in pokemon2.specialcondition and pokemon2.chargedmoves > 0:
+            pokemon2.chargedmoves -= 1
+        
+        elif 'Solar' in pokemon2.specialcondition and pokemon2.chargedmoves == 0:
+            pokemon2.specialcondition.remove('Solar')
 
 
         poke1_porcentagem = pokemon1.currenthp / pokemon1.hp if pokemon1.currenthp > 0 else 0

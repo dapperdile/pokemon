@@ -8,7 +8,7 @@ from datetime import datetime
 from pokemon_obj import Pokemon_char
 from battle import Pokemon_battle
 
-__author__ = "janio.almeida"
+__author__ = "rafael.bernardo"
 __date__ = "25/10/2024"
 __version__ = open("version").readline()
 __project__ = "Pokemon"
@@ -244,7 +244,12 @@ try:
             # attack_1 = random.choices(pokemon1.moves)[0]
             wrong_input = True
             while wrong_input: 
-                attack_1_str = input("Digite o nome do movimento: ").title()
+                if 'Solar' in pokemon1.specialcondition:
+                    attack_1_str = 'Solar Beam'
+
+                else:
+                    attack_1_str = input("Digite o nome do movimento: ").title()
+
                 attack_validation, move_poke1 = pokemon1.moveValidation(attack_1_str)
                 if attack_validation == True:
                     wrong_input = False
