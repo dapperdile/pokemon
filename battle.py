@@ -160,6 +160,11 @@ class Pokemon_battle:
                 else:
                     print(f"O {pokemon2.name} já tem uma semente!")
 
+            elif attack['name'] in ['Dragon Breath']:
+                if random.randint(0, 100) <= 30 and not pokemon2.statuscondition:
+                    pokemon2.statuscondition = "Paralyzed"
+                    print(f"O {pokemon2.name} foi paralizado!")
+
         return pokemon1, pokemon2
 
 
@@ -213,6 +218,9 @@ class Pokemon_battle:
                 pokemon2.healthdamage(round(damage_1))
                 print(f'A vida do {pokemon2.name} é {pokemon2.currenthp}')
                 print("#" * 30)
+
+                if pokemon2.currenthp <= 0:
+                    return 0
 
                 if pokemon2.statuscondition == "Frozen" and attack_1['type'] == 'Fire':
                     print(f"O {pokemon2.name} foi descongelado.")

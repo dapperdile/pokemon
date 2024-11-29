@@ -1,6 +1,4 @@
 - Definir uma função para combate
     -Construir  movimentos com efeitos especiais, para no maximo 15 primeiros pokemons.(Ninetales)
-- terminar a batalha se o pokemon estiver morto(ou derrotado)
-- tirar as virgulas das descrições de movimentos em poke_move_new.csv
 - Criar um banco de dados para o projeto Pokemon
 - Integrar o banco de dados
