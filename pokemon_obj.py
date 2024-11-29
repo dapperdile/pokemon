@@ -34,6 +34,7 @@ class Pokemon_char:
 		self.evasionstage = 0
 		self.statuscondition = ''
 		self.sleepcount = 0
+		self.firetrapcount = 0
 		self.specialcondition = []
 		self.chargedmoves = 0
 

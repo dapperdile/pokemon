@@ -42,7 +42,7 @@ class Pokemon_battle:
 
     def damageCalculation(self, lvl, move_info, attack, defense, poke_1_type_1, poke_1_type_2, 
                           poke_2_type_1, poke_2_type_2):
-        crit_limit = 12 if move_info['name'] == 'Razor Leaf' else 5
+        crit_limit = 12 if move_info['name'] in ['Razor Leaf', 'Slash'] else 4
         crit = 2 if random.randint(0, 100) <= crit_limit else 1
         rand = random.randint(217, 255) / 255
         stab = 1.5 if move_info["type"] == poke_1_type_1 or poke_1_type_2 else 1
@@ -164,6 +164,13 @@ class Pokemon_battle:
                 if random.randint(0, 100) <= 30 and not pokemon2.statuscondition:
                     pokemon2.statuscondition = "Paralyzed"
                     print(f"O {pokemon2.name} foi paralizado!")
+
+            elif attack['name'] in ['Fire Spin']:
+                if "Fire Trap" not in pokemon2.specialcondition:
+                    pokemon2.specialcondition.append("Fire Trap")
+                    pokemon2.firetrapcount = random.randint(4, 5)
+                else:
+                    print("O ataque não teve efeito")
 
         return pokemon1, pokemon2
 
@@ -321,11 +328,21 @@ class Pokemon_battle:
             print(f"O {pokemon2.name} recuperou {leech_damage} de vida pela semente!")
 
         
-        elif 'Solar' in pokemon1.specialcondition and pokemon1.chargedmoves > 0:
+        if 'Solar' in pokemon1.specialcondition and pokemon1.chargedmoves > 0:
             pokemon1.chargedmoves -= 1
         
         elif 'Solar' in pokemon1.specialcondition and pokemon1.chargedmoves == 0:
             pokemon1.specialcondition.remove('Solar')
+
+        if "Fire Trap" in pokemon1.specialcondition:
+            if pokemon1.firetrapcount > 0:
+                pokemon1.firetrapcount -= 1
+                firetrap_damage = round(pokemon1.hp / 8)
+                pokemon1.healthdamage(firetrap_damage)
+                print(f"{pokemon1.name} sofreu {firetrap_damage} por estar preso em um circulo de fogo!")
+            else:
+                pokemon1.specialcondition.remove("Fire Trap")
+                print(f"{pokemon1.name} se libertou do circulo de fogo!")
 
 
         # Verificação Status Pokemon 2
@@ -353,11 +370,21 @@ class Pokemon_battle:
             print(f"O {pokemon2.name} sofreu {leech_damage} de dano pela semente!")
             print(f"O {pokemon1.name} recuperou {leech_damage} de vida pela semente!")
 
-        elif 'Solar' in pokemon2.specialcondition and pokemon2.chargedmoves > 0:
+        if 'Solar' in pokemon2.specialcondition and pokemon2.chargedmoves > 0:
             pokemon2.chargedmoves -= 1
-        
+
         elif 'Solar' in pokemon2.specialcondition and pokemon2.chargedmoves == 0:
             pokemon2.specialcondition.remove('Solar')
+
+        if "Fire Trap" in pokemon2.specialcondition:
+            if pokemon2.firetrapcount > 0:
+                pokemon2.firetrapcount -= 1
+                firetrap_damage = round(pokemon2.hp / 8)
+                pokemon2.healthdamage(firetrap_damage)
+                print(f"{pokemon2.name} sofreu {firetrap_damage} por estar preso em um circulo de fogo!")
+            else:
+                pokemon2.specialcondition.remove("Fire Trap")
+                print(f"{pokemon2.name} se libertou do circulo de fogo!")
 
 
         poke1_porcentagem = pokemon1.currenthp / pokemon1.hp if pokemon1.currenthp > 0 else 0
